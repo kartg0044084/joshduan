@@ -18,6 +18,9 @@ Route::get('returncategory1', 'PagesController@returncategory1')->name('returnca
 Route::get('getproduct_all', 'ProductController@ad_product')->name('ad_product');
 Route::post('ajax_product', 'ProductController@ad_product')->name('ajax_product');
 Route::get('product_view', 'ProductController@product_view')->name('product_view');
+// 前台 會員
+Route::get('getmember', 'MemberController@getmember')->name('getmember');
+Route::post('member_done', 'MemberController@member_done')->name('member_done');
 // 後台 主頁
 Route::get('admin', 'AdminController@ad_index')->name('admin');
 // 後台 管理者

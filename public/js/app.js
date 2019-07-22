@@ -133,8 +133,7 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./jquery.min */ "./resources/assets/js/jquery.min.js");
 
-__webpack_require__(/*! ./bootstrap */ "./resources/assets/js/bootstrap.js"); // require('./popper.min');
-
+__webpack_require__(/*! ./bootstrap */ "./resources/assets/js/bootstrap.js");
 
 __webpack_require__(/*! ./main */ "./resources/assets/js/main.js"); // vue 暫無使用打算
 // window.Vue = require('vue');

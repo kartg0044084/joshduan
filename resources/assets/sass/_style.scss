@@ -27,6 +27,10 @@ body{
 .red{
     color: #8F0000;
 }
+.member{
+    float: left;
+    overflow: hidden;
+}
 .jumbotron-bg{
     background: url(../images/home.jpg);
     background-attachment: fixed;

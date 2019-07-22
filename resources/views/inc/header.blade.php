@@ -1,14 +1,11 @@
 <nav class="navbar navbar-light bg-light ">
     <a href="" class="navbar-brand mb-0 h1" style="font-weight: bold;"><i class="fas fa-heart text-info mr-1"></i>josh 購物商城</a>
     <div class="dropdown ml-auto">
-        <button class="btn btn-cart btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <a href="#">登入/</a>
-            <a href="#">註冊/</a>
+        <div class="btn btn-cart btn-sm">
+            <a href="getmember">登入/ 註冊/</a>
             <a href="#">會員中心/</a>
             <a href="#">購物車/</a>
-            <a href="#">結帳/</a>
-        </button>
+        </div>
         <div class="dropdown-menu dropdown-menu-right" style="min-width: 300px" aria-labelledby="dropdownMenuButton">
             <div class="p-3">
                 <table class="table table-sm ">
