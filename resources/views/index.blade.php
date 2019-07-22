@@ -27,7 +27,7 @@
                                                 @endif
                                                 <button type="button" class="btn btn-dark btn-sm" disabled>$@if($value['Pd_Discount_Price'] != NULL){{$value['Pd_Discount_Price']}}@else{{$value['Pd_Price']}}@endif元</button>
                                             </div>
-                                            <a href="#" class="btn btn-outline-secondary btn-sm mt-2 d-block"><i class="fas fa-shopping-cart mr-1"></i>加入購物車</a>
+                                            <a href="product_view?Pd_id={{$value['Pd_id']}}" class="btn btn-outline-secondary btn-sm mt-2 d-block"><i class="fas fa-shopping-cart mr-1"></i>購物去</a>
                                         </div>
 
                                     </div>

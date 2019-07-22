@@ -17,6 +17,12 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
+    public function product_view(Request $request){
+        $pd_id = $request->input("Pd_id");
+        $product = $this->productRepository->getproduct($pd_id);
+        return view('pages.product_view',compact('product'));
+    }
+
     public function ad_category1(){
         //先按大分類查看
         $category1 = $this->productRepository->getcategory1();

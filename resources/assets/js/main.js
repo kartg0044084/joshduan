@@ -55,6 +55,9 @@ $(document).ready(function () {
         });
     });
 
+    var product_content = $('.product_content').attr('value');
+    $('.product_content').html(product_content);
+
     $('body').on("click", '.returncategory1', function () {
         var parent_div = $(this).parent();
         $.ajax({
@@ -145,7 +148,7 @@ $(document).ready(function () {
                                  var datatext3 = '<button type="button" class="btn btn-dark btn-sm" disabled>$'+data[i].Pd_Price+'元</button>';
 
                         var datatext4 = '</div>'
-                                        +'<a href="#" class="btn btn-outline-secondary btn-sm mt-2 d-block"><i class="fas fa-shopping-cart mr-1"></i>加入購物車</a>'
+                                        +'<a href="product_view?Pd_id='+data[i].Pd_id+'" class="btn btn-outline-secondary btn-sm mt-2 d-block"><i class="fas fa-shopping-cart mr-1"></i>購物去</a>'
                                     +'</div>'
 
                                 +'</div>'

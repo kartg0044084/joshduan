@@ -664,6 +664,10 @@ body {
   display: -webkit-box;
 }
 
+.red {
+  color: #8F0000;
+}
+
 .jumbotron-bg {
   background: url(/images/home.jpg?6a32516a85fdce0c820640aa540b17ed);
   background-attachment: fixed;

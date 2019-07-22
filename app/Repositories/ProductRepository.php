@@ -24,6 +24,12 @@ class ProductRepository extends Repository
         return $discount_product;
     }
 
+    public function getproduct($pd_id)
+    {
+        $product = $this->product->whereRaw('Pd_id = "'.$pd_id.'" AND Pd_Status != 0')->get()->toArray();
+        return $product;
+    }
+
     public function getcategory1()
     {
         $category1 = $this->category->whereRaw('Category1 != ""')->get()->toArray();
