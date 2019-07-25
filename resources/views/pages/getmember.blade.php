@@ -16,7 +16,7 @@
                     <div class="form-row text-left mt-3">
                         <div class="form-group col-md-12">
                             <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control " id="email" placeholder="Email" required>
+                            <input type="email" name="email" class="form-control register_email" id="email" placeholder="Email" required>
                             <div class="invalid-feedback">請填寫Email</div>
                         </div>
                         <div class="form-group col-md-12">
@@ -39,12 +39,15 @@
                             <input type="phone" name="phone" class="form-control" id="phone" placeholder="phone" required>
                             <div class="invalid-feedback">請填寫電話</div>
                         </div>
+                        <div class="form-group col-md-12 register_errormessage">
+                            <label></label>
+                        </div>
                     </div>
 
                     <div class="mt-3 d-flex justify-content-end">
                         <input type="hidden" name="type" value="register">
                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                        <button type="submit" class="btn btn-primary">送出</button>
+                        <button type="submit" class="btn btn-primary register_member">送出</button>
                     </div>
                 </form>
             </div>
@@ -102,4 +105,11 @@
             </div>
         </div>
     </div>
+    @if($errors->count())
+        @foreach ($errors->all() as $error)
+        <script type="text/javascript">
+            alert('{{$error}}');
+        </script>
+        @endforeach
+    @endif
 @endsection

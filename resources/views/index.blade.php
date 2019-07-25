@@ -153,4 +153,11 @@
             </div>
         </div>
     </div>
+    @if($errors->count())
+        @foreach ($errors->all() as $error)
+        <script type="text/javascript">
+            alert('{{$error}}');
+        </script>
+        @endforeach
+    @endif
 @endsection

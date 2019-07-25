@@ -668,9 +668,22 @@ body {
   color: #8F0000;
 }
 
+.register_errormessage {
+  display: none;
+}
+
+.register_errormessage label {
+  color: red;
+  font-size: 10px;
+}
+
 .member {
   float: left;
   overflow: hidden;
+}
+
+.center {
+  justify-content: center !important;
 }
 
 .jumbotron-bg {

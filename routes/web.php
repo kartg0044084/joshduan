@@ -20,7 +20,13 @@ Route::post('ajax_product', 'ProductController@ad_product')->name('ajax_product'
 Route::get('product_view', 'ProductController@product_view')->name('product_view');
 // 前台 會員
 Route::get('getmember', 'MemberController@getmember')->name('getmember');
+Route::post('repeat_member', 'MemberController@repeat_member')->name('repeat_member');
 Route::post('member_done', 'MemberController@member_done')->name('member_done');
+Route::get('member_verification', 'MemberController@member_verification')->name('member_verification');
+Route::get('informal_member', 'MemberController@informal_member')->name('informal_member');
+Route::get('logout', 'MemberController@logout')->name('logout');
+//寄會員驗證信
+Route::get('mailpost', 'MailController@mailpost')->name('mailpost');
 // 後台 主頁
 Route::get('admin', 'AdminController@ad_index')->name('admin');
 // 後台 管理者

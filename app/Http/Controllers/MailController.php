@@ -15,13 +15,15 @@ class MailController extends Controller
 
     }
 
-    public function mailpost($email, $password, $name, $address, $phone)
+    public function mailpost()
     {
-        $string = str_random(40);
+        $string = str_random(10);
+        session()->put('string', $string);
+        $email = session('member.Mb_Email');
+        $name = session('member.Mb_Name');
         //從表單取得資料
         $from = ['email' => $email,
-                 'name' => $name,
-                 'phone' => $phone
+                 'name' => $name
                 ];
 
         //填寫收信人信箱
@@ -31,18 +33,17 @@ class MailController extends Controller
 
         //信件的內容(即表單填寫的資料)
         $data = ['email' => $email,
-                 'password' => $password,
                  'name' => $name,
-                 'address' => $address,
-                 'phone' => $phone,
                  'string' => $string
                  ];
 
          //寄出信件
          Mail::send('emails.post', $data, function($message) use ($from, $to) {
              $message->from($from['email'], $from['name']);
-             $message->to($to['email'], $to['name'])->subject('Login Details');
+             $message->to($to['email'], $to['name'])->subject('joshduane 購物商城會員驗證通知信');
             });
+
+        return redirect('informal_member');
     }
 
 }

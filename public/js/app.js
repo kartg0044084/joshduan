@@ -6067,6 +6067,16 @@ $(document).ready(function () {
     var modal = $(this);
     modal.find('.modal-title').text('確認刪除 ' + title);
     modal.find('.modal-body').text('您要刪除 ' + title + ' $ ' + price + '元 嗎?');
+  });
+  $('body').on("click", '#dropdownMenuButton', function () {
+    $('.dropdown-menu').show();
+  });
+  $(document).mouseup(function (e) {
+    var container = $('.dropdown-menu'); // 這邊放你想要排除的區塊
+
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+      container.hide();
+    }
   }); //動態新增的elements要綁定事件需要用.on的方式
 
   $('body').on("click", '.getcategory2', function () {
@@ -6194,7 +6204,29 @@ $(document).ready(function () {
         }
       }
     });
-  }
+  } //動態新增的elements要綁定事件需要用.on的方式
+
+
+  $('body').on("click", '.register_member', function (event) {
+    var email_val = $('.register_email').val(),
+        errormessage = $('.register_errormessage');
+    $.ajax({
+      type: 'POST',
+      url: 'repeat_member',
+      data: {
+        "email": email_val
+      },
+      async: false,
+      success: function success(data) {
+        if (data == 'error') {
+          event.preventDefault();
+          event.stopPropagation();
+          $(errormessage).children('label').html('此Email信箱已有人使用，請更改Email地址');
+          $(errormessage).show();
+        }
+      }
+    });
+  });
 });
 
 /***/ }),
