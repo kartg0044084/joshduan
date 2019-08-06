@@ -24,6 +24,11 @@ class MemberService extends Service
         $data['Mb_Id'] = $member['Mb_Id'];
         $data['Mb_Email'] = $member['Mb_Email'];
         $data['Mb_Name'] = $member['Mb_Name'];
+        $data['Mb_City'] = $member['Mb_City'];
+        $data['Mb_Town'] = $member['Mb_Town'];
+        $data['Mb_Postcode'] = $member['Mb_Postcode'];
+        $data['Mb_Address'] = $member['Mb_Address'];
+        $data['Mb_Phone'] = $member['Mb_Phone'];
 
         session()->put('member', $data);
         return $data;

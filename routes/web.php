@@ -12,6 +12,7 @@
 */
 // 前台 主頁
 Route::get('', 'PagesController@index');
+Route::get('index', 'PagesController@index');
 Route::post('getcategory2', 'PagesController@getcategory2')->name('getcategory2');
 Route::get('returncategory1', 'PagesController@returncategory1')->name('returncategory1');
 // 前台 商品
@@ -25,6 +26,13 @@ Route::post('member_done', 'MemberController@member_done')->name('member_done');
 Route::get('member_verification', 'MemberController@member_verification')->name('member_verification');
 Route::get('informal_member', 'MemberController@informal_member')->name('informal_member');
 Route::get('logout', 'MemberController@logout')->name('logout');
+// 前台購物車/結帳
+Route::post('add_cart', 'CartController@add_cart')->name('add_cart');
+Route::get('cart', 'CartController@cart')->name('cart');
+Route::post('del_cart', 'CartController@del_cart')->name('del_cart');
+Route::post('checkout', 'CartController@checkout')->name('checkout');
+// 歐付寶 結帳系統
+Route::post('allpayrecevie', 'AllpayController@allpayrecevie')->name('allpayrecevie');
 //寄會員驗證信
 Route::get('mailpost', 'MailController@mailpost')->name('mailpost');
 // 後台 主頁

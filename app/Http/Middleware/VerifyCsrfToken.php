@@ -11,7 +11,8 @@ class VerifyCsrfToken extends BaseVerifier
      *
      * @var array
      */
+    //不使用 csrf_token post 驗證 Route
     protected $except = [
-        //
+         'allpayrecevie'
     ];
 }

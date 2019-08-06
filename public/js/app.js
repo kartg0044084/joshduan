@@ -135,6 +135,8 @@ __webpack_require__(/*! ./jquery.min */ "./resources/assets/js/jquery.min.js");
 
 __webpack_require__(/*! ./bootstrap */ "./resources/assets/js/bootstrap.js");
 
+__webpack_require__(/*! ./jquery.twzipcode.min */ "./resources/assets/js/jquery.twzipcode.min.js");
+
 __webpack_require__(/*! ./main */ "./resources/assets/js/main.js"); // vue 暫無使用打算
 // window.Vue = require('vue');
 
@@ -6024,6 +6026,671 @@ if (typeof jQuery === 'undefined') {
 
 /***/ }),
 
+/***/ "./resources/assets/js/jquery.twzipcode.min.js":
+/*!*****************************************************!*\
+  !*** ./resources/assets/js/jquery.twzipcode.min.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ MIT License
+*/
+(function (g, n, p, q) {
+  function m(a, b) {
+    this.container = g(a);
+    this.options = g.extend({}, {
+      countyName: "county",
+      css: [],
+      detect: !1,
+      districtName: "district",
+      googleMapsKey: "",
+      hideCounty: [],
+      hideDistrict: [],
+      onCountySelect: null,
+      onDistrictSelect: null,
+      onZipcodeKeyUp: null,
+      readonly: !1,
+      zipcodeName: "zipcode",
+      zipcodePlaceholder: "\u90F5\u905E\u5340\u865F",
+      zipcodeIntoDistrict: !1
+    }, b);
+    this.init();
+  }
+
+  var f = {
+    "\u57FA\u9686\u5E02": {
+      "\u4EC1\u611B\u5340": "200",
+      "\u4FE1\u7FA9\u5340": "201",
+      "\u4E2D\u6B63\u5340": "202",
+      "\u4E2D\u5C71\u5340": "203",
+      "\u5B89\u6A02\u5340": "204",
+      "\u6696\u6696\u5340": "205",
+      "\u4E03\u5835\u5340": "206"
+    },
+    "\u81FA\u5317\u5E02": {
+      "\u4E2D\u6B63\u5340": "100",
+      "\u5927\u540C\u5340": "103",
+      "\u4E2D\u5C71\u5340": "104",
+      "\u677E\u5C71\u5340": "105",
+      "\u5927\u5B89\u5340": "106",
+      "\u842C\u83EF\u5340": "108",
+      "\u4FE1\u7FA9\u5340": "110",
+      "\u58EB\u6797\u5340": "111",
+      "\u5317\u6295\u5340": "112",
+      "\u5167\u6E56\u5340": "114",
+      "\u5357\u6E2F\u5340": "115",
+      "\u6587\u5C71\u5340": "116"
+    },
+    "\u65B0\u5317\u5E02": {
+      "\u842C\u91CC\u5340": "207",
+      "\u91D1\u5C71\u5340": "208",
+      "\u677F\u6A4B\u5340": "220",
+      "\u6C50\u6B62\u5340": "221",
+      "\u6DF1\u5751\u5340": "222",
+      "\u77F3\u7887\u5340": "223",
+      "\u745E\u82B3\u5340": "224",
+      "\u5E73\u6EAA\u5340": "226",
+      "\u96D9\u6EAA\u5340": "227",
+      "\u8CA2\u5BEE\u5340": "228",
+      "\u65B0\u5E97\u5340": "231",
+      "\u576A\u6797\u5340": "232",
+      "\u70CF\u4F86\u5340": "233",
+      "\u6C38\u548C\u5340": "234",
+      "\u4E2D\u548C\u5340": "235",
+      "\u571F\u57CE\u5340": "236",
+      "\u4E09\u5CFD\u5340": "237",
+      "\u6A39\u6797\u5340": "238",
+      "\u9DAF\u6B4C\u5340": "239",
+      "\u4E09\u91CD\u5340": "241",
+      "\u65B0\u838A\u5340": "242",
+      "\u6CF0\u5C71\u5340": "243",
+      "\u6797\u53E3\u5340": "244",
+      "\u8606\u6D32\u5340": "247",
+      "\u4E94\u80A1\u5340": "248",
+      "\u516B\u91CC\u5340": "249",
+      "\u6DE1\u6C34\u5340": "251",
+      "\u4E09\u829D\u5340": "252",
+      "\u77F3\u9580\u5340": "253"
+    },
+    "\u5B9C\u862D\u7E23": {
+      "\u5B9C\u862D\u5E02": "260",
+      "\u982D\u57CE\u93AE": "261",
+      "\u7901\u6EAA\u9109": "262",
+      "\u58EF\u570D\u9109": "263",
+      "\u54E1\u5C71\u9109": "264",
+      "\u7F85\u6771\u93AE": "265",
+      "\u4E09\u661F\u9109": "266",
+      "\u5927\u540C\u9109": "267",
+      "\u4E94\u7D50\u9109": "268",
+      "\u51AC\u5C71\u9109": "269",
+      "\u8607\u6FB3\u93AE": "270",
+      "\u5357\u6FB3\u9109": "272",
+      "\u91E3\u9B5A\u81FA\u5217\u5DBC": "290"
+    },
+    "\u65B0\u7AF9\u5E02": {
+      "\u6771\u5340": "300",
+      "\u5317\u5340": "300",
+      "\u9999\u5C71\u5340": "300"
+    },
+    "\u65B0\u7AF9\u7E23": {
+      "\u7AF9\u5317\u5E02": "302",
+      "\u6E56\u53E3\u9109": "303",
+      "\u65B0\u8C50\u9109": "304",
+      "\u65B0\u57D4\u93AE": "305",
+      "\u95DC\u897F\u93AE": "306",
+      "\u828E\u6797\u9109": "307",
+      "\u5BF6\u5C71\u9109": "308",
+      "\u7AF9\u6771\u93AE": "310",
+      "\u4E94\u5CF0\u9109": "311",
+      "\u6A6B\u5C71\u9109": "312",
+      "\u5C16\u77F3\u9109": "313",
+      "\u5317\u57D4\u9109": "314",
+      "\u5CE8\u7709\u9109": "315"
+    },
+    "\u6843\u5712\u5E02": {
+      "\u4E2D\u58E2\u5340": "320",
+      "\u5E73\u93AE\u5340": "324",
+      "\u9F8D\u6F6D\u5340": "325",
+      "\u694A\u6885\u5340": "326",
+      "\u65B0\u5C4B\u5340": "327",
+      "\u89C0\u97F3\u5340": "328",
+      "\u6843\u5712\u5340": "330",
+      "\u9F9C\u5C71\u5340": "333",
+      "\u516B\u5FB7\u5340": "334",
+      "\u5927\u6EAA\u5340": "335",
+      "\u5FA9\u8208\u5340": "336",
+      "\u5927\u5712\u5340": "337",
+      "\u8606\u7AF9\u5340": "338"
+    },
+    "\u82D7\u6817\u7E23": {
+      "\u7AF9\u5357\u93AE": "350",
+      "\u982D\u4EFD\u5E02": "351",
+      "\u4E09\u7063\u9109": "352",
+      "\u5357\u5E84\u9109": "353",
+      "\u7345\u6F6D\u9109": "354",
+      "\u5F8C\u9F8D\u93AE": "356",
+      "\u901A\u9704\u93AE": "357",
+      "\u82D1\u88E1\u93AE": "358",
+      "\u82D7\u6817\u5E02": "360",
+      "\u9020\u6A4B\u9109": "361",
+      "\u982D\u5C4B\u9109": "362",
+      "\u516C\u9928\u9109": "363",
+      "\u5927\u6E56\u9109": "364",
+      "\u6CF0\u5B89\u9109": "365",
+      "\u9285\u947C\u9109": "366",
+      "\u4E09\u7FA9\u9109": "367",
+      "\u897F\u6E56\u9109": "368",
+      "\u5353\u862D\u93AE": "369"
+    },
+    "\u81FA\u4E2D\u5E02": {
+      "\u4E2D\u5340": "400",
+      "\u6771\u5340": "401",
+      "\u5357\u5340": "402",
+      "\u897F\u5340": "403",
+      "\u5317\u5340": "404",
+      "\u5317\u5C6F\u5340": "406",
+      "\u897F\u5C6F\u5340": "407",
+      "\u5357\u5C6F\u5340": "408",
+      "\u592A\u5E73\u5340": "411",
+      "\u5927\u91CC\u5340": "412",
+      "\u9727\u5CF0\u5340": "413",
+      "\u70CF\u65E5\u5340": "414",
+      "\u8C50\u539F\u5340": "420",
+      "\u540E\u91CC\u5340": "421",
+      "\u77F3\u5CA1\u5340": "422",
+      "\u6771\u52E2\u5340": "423",
+      "\u548C\u5E73\u5340": "424",
+      "\u65B0\u793E\u5340": "426",
+      "\u6F6D\u5B50\u5340": "427",
+      "\u5927\u96C5\u5340": "428",
+      "\u795E\u5CA1\u5340": "429",
+      "\u5927\u809A\u5340": "432",
+      "\u6C99\u9E7F\u5340": "433",
+      "\u9F8D\u4E95\u5340": "434",
+      "\u68A7\u68F2\u5340": "435",
+      "\u6E05\u6C34\u5340": "436",
+      "\u5927\u7532\u5340": "437",
+      "\u5916\u57D4\u5340": "438",
+      "\u5927\u5B89\u5340": "439"
+    },
+    "\u5F70\u5316\u7E23": {
+      "\u5F70\u5316\u5E02": "500",
+      "\u82AC\u5712\u9109": "502",
+      "\u82B1\u58C7\u9109": "503",
+      "\u79C0\u6C34\u9109": "504",
+      "\u9E7F\u6E2F\u93AE": "505",
+      "\u798F\u8208\u9109": "506",
+      "\u7DDA\u897F\u9109": "507",
+      "\u548C\u7F8E\u93AE": "508",
+      "\u4F38\u6E2F\u9109": "509",
+      "\u54E1\u6797\u5E02": "510",
+      "\u793E\u982D\u9109": "511",
+      "\u6C38\u9756\u9109": "512",
+      "\u57D4\u5FC3\u9109": "513",
+      "\u6EAA\u6E56\u93AE": "514",
+      "\u5927\u6751\u9109": "515",
+      "\u57D4\u9E7D\u9109": "516",
+      "\u7530\u4E2D\u93AE": "520",
+      "\u5317\u6597\u93AE": "521",
+      "\u7530\u5C3E\u9109": "522",
+      "\u57E4\u982D\u9109": "523",
+      "\u6EAA\u5DDE\u9109": "524",
+      "\u7AF9\u5858\u9109": "525",
+      "\u4E8C\u6797\u93AE": "526",
+      "\u5927\u57CE\u9109": "527",
+      "\u82B3\u82D1\u9109": "528",
+      "\u4E8C\u6C34\u9109": "530"
+    },
+    "\u5357\u6295\u7E23": {
+      "\u5357\u6295\u5E02": "540",
+      "\u4E2D\u5BEE\u9109": "541",
+      "\u8349\u5C6F\u93AE": "542",
+      "\u570B\u59D3\u9109": "544",
+      "\u57D4\u91CC\u93AE": "545",
+      "\u4EC1\u611B\u9109": "546",
+      "\u540D\u9593\u9109": "551",
+      "\u96C6\u96C6\u93AE": "552",
+      "\u6C34\u91CC\u9109": "553",
+      "\u9B5A\u6C60\u9109": "555",
+      "\u4FE1\u7FA9\u9109": "556",
+      "\u7AF9\u5C71\u93AE": "557",
+      "\u9E7F\u8C37\u9109": "558"
+    },
+    "\u5609\u7FA9\u5E02": {
+      "\u6771\u5340": "600",
+      "\u897F\u5340": "600"
+    },
+    "\u5609\u7FA9\u7E23": {
+      "\u756A\u8DEF\u9109": "602",
+      "\u6885\u5C71\u9109": "603",
+      "\u7AF9\u5D0E\u9109": "604",
+      "\u963F\u91CC\u5C71": "605",
+      "\u4E2D\u57D4\u9109": "606",
+      "\u5927\u57D4\u9109": "607",
+      "\u6C34\u4E0A\u9109": "608",
+      "\u9E7F\u8349\u9109": "611",
+      "\u592A\u4FDD\u5E02": "612",
+      "\u6734\u5B50\u5E02": "613",
+      "\u6771\u77F3\u9109": "614",
+      "\u516D\u8173\u9109": "615",
+      "\u65B0\u6E2F\u9109": "616",
+      "\u6C11\u96C4\u9109": "621",
+      "\u5927\u6797\u93AE": "622",
+      "\u6EAA\u53E3\u9109": "623",
+      "\u7FA9\u7AF9\u9109": "624",
+      "\u5E03\u888B\u93AE": "625"
+    },
+    "\u96F2\u6797\u7E23": {
+      "\u6597\u5357\u93AE": "630",
+      "\u5927\u57E4\u9109": "631",
+      "\u864E\u5C3E\u93AE": "632",
+      "\u571F\u5EAB\u93AE": "633",
+      "\u8912\u5FE0\u9109": "634",
+      "\u6771\u52E2\u9109": "635",
+      "\u81FA\u897F\u9109": "636",
+      "\u5D19\u80CC\u9109": "637",
+      "\u9EA5\u5BEE\u9109": "638",
+      "\u6597\u516D\u5E02": "640",
+      "\u6797\u5167\u9109": "643",
+      "\u53E4\u5751\u9109": "646",
+      "\u83BF\u6850\u9109": "647",
+      "\u897F\u87BA\u93AE": "648",
+      "\u4E8C\u5D19\u9109": "649",
+      "\u5317\u6E2F\u93AE": "651",
+      "\u6C34\u6797\u9109": "652",
+      "\u53E3\u6E56\u9109": "653",
+      "\u56DB\u6E56\u9109": "654",
+      "\u5143\u9577\u9109": "655"
+    },
+    "\u81FA\u5357\u5E02": {
+      "\u4E2D\u897F\u5340": "700",
+      "\u6771\u5340": "701",
+      "\u5357\u5340": "702",
+      "\u5317\u5340": "704",
+      "\u5B89\u5E73\u5340": "708",
+      "\u5B89\u5357\u5340": "709",
+      "\u6C38\u5EB7\u5340": "710",
+      "\u6B78\u4EC1\u5340": "711",
+      "\u65B0\u5316\u5340": "712",
+      "\u5DE6\u93AE\u5340": "713",
+      "\u7389\u4E95\u5340": "714",
+      "\u6960\u897F\u5340": "715",
+      "\u5357\u5316\u5340": "716",
+      "\u4EC1\u5FB7\u5340": "717",
+      "\u95DC\u5EDF\u5340": "718",
+      "\u9F8D\u5D0E\u5340": "719",
+      "\u5B98\u7530\u5340": "720",
+      "\u9EBB\u8C46\u5340": "721",
+      "\u4F73\u91CC\u5340": "722",
+      "\u897F\u6E2F\u5340": "723",
+      "\u4E03\u80A1\u5340": "724",
+      "\u5C07\u8ECD\u5340": "725",
+      "\u5B78\u7532\u5340": "726",
+      "\u5317\u9580\u5340": "727",
+      "\u65B0\u71DF\u5340": "730",
+      "\u5F8C\u58C1\u5340": "731",
+      "\u767D\u6CB3\u5340": "732",
+      "\u6771\u5C71\u5340": "733",
+      "\u516D\u7532\u5340": "734",
+      "\u4E0B\u71DF\u5340": "735",
+      "\u67F3\u71DF\u5340": "736",
+      "\u9E7D\u6C34\u5340": "737",
+      "\u5584\u5316\u5340": "741",
+      "\u5927\u5167\u5340": "742",
+      "\u5C71\u4E0A\u5340": "743",
+      "\u65B0\u5E02\u5340": "744",
+      "\u5B89\u5B9A\u5340": "745"
+    },
+    "\u9AD8\u96C4\u5E02": {
+      "\u65B0\u8208\u5340": "800",
+      "\u524D\u91D1\u5340": "801",
+      "\u82D3\u96C5\u5340": "802",
+      "\u9E7D\u57D5\u5340": "803",
+      "\u9F13\u5C71\u5340": "804",
+      "\u65D7\u6D25\u5340": "805",
+      "\u524D\u93AE\u5340": "806",
+      "\u4E09\u6C11\u5340": "807",
+      "\u6960\u6893\u5340": "811",
+      "\u5C0F\u6E2F\u5340": "812",
+      "\u5DE6\u71DF\u5340": "813",
+      "\u4EC1\u6B66\u5340": "814",
+      "\u5927\u793E\u5340": "815",
+      "\u6771\u6C99\u7FA4\u5CF6": "817",
+      "\u5357\u6C99\u7FA4\u5CF6": "819",
+      "\u5CA1\u5C71\u5340": "820",
+      "\u8DEF\u7AF9\u5340": "821",
+      "\u963F\u84EE\u5340": "822",
+      "\u7530\u5BEE\u5340": "823",
+      "\u71D5\u5DE2\u5340": "824",
+      "\u6A4B\u982D\u5340": "825",
+      "\u6893\u5B98\u5340": "826",
+      "\u5F4C\u9640\u5340": "827",
+      "\u6C38\u5B89\u5340": "828",
+      "\u6E56\u5167\u5340": "829",
+      "\u9CF3\u5C71\u5340": "830",
+      "\u5927\u5BEE\u5340": "831",
+      "\u6797\u5712\u5340": "832",
+      "\u9CE5\u677E\u5340": "833",
+      "\u5927\u6A39\u5340": "840",
+      "\u65D7\u5C71\u5340": "842",
+      "\u7F8E\u6FC3\u5340": "843",
+      "\u516D\u9F9C\u5340": "844",
+      "\u5167\u9580\u5340": "845",
+      "\u6749\u6797\u5340": "846",
+      "\u7532\u4ED9\u5340": "847",
+      "\u6843\u6E90\u5340": "848",
+      "\u90A3\u746A\u590F\u5340": "849",
+      "\u8302\u6797\u5340": "851",
+      "\u8304\u8423\u5340": "852"
+    },
+    "\u5C4F\u6771\u7E23": {
+      "\u5C4F\u6771\u5E02": "900",
+      "\u4E09\u5730\u9580\u9109": "901",
+      "\u9727\u81FA\u9109": "902",
+      "\u746A\u5BB6\u9109": "903",
+      "\u4E5D\u5982\u9109": "904",
+      "\u91CC\u6E2F\u9109": "905",
+      "\u9AD8\u6A39\u9109": "906",
+      "\u9E7D\u57D4\u9109": "907",
+      "\u9577\u6CBB\u9109": "908",
+      "\u9E9F\u6D1B\u9109": "909",
+      "\u7AF9\u7530\u9109": "911",
+      "\u5167\u57D4\u9109": "912",
+      "\u842C\u4E39\u9109": "913",
+      "\u6F6E\u5DDE\u93AE": "920",
+      "\u6CF0\u6B66\u9109": "921",
+      "\u4F86\u7FA9\u9109": "922",
+      "\u842C\u5DD2\u9109": "923",
+      "\u5D01\u9802\u9109": "924",
+      "\u65B0\u57E4\u9109": "925",
+      "\u5357\u5DDE\u9109": "926",
+      "\u6797\u908A\u9109": "927",
+      "\u6771\u6E2F\u93AE": "928",
+      "\u7409\u7403\u9109": "929",
+      "\u4F73\u51AC\u9109": "931",
+      "\u65B0\u5712\u9109": "932",
+      "\u678B\u5BEE\u9109": "940",
+      "\u678B\u5C71\u9109": "941",
+      "\u6625\u65E5\u9109": "942",
+      "\u7345\u5B50\u9109": "943",
+      "\u8ECA\u57CE\u9109": "944",
+      "\u7261\u4E39\u9109": "945",
+      "\u6046\u6625\u93AE": "946",
+      "\u6EFF\u5DDE\u9109": "947"
+    },
+    "\u81FA\u6771\u7E23": {
+      "\u81FA\u6771\u5E02": "950",
+      "\u7DA0\u5CF6\u9109": "951",
+      "\u862D\u5DBC\u9109": "952",
+      "\u5EF6\u5E73\u9109": "953",
+      "\u5351\u5357\u9109": "954",
+      "\u9E7F\u91CE\u9109": "955",
+      "\u95DC\u5C71\u93AE": "956",
+      "\u6D77\u7AEF\u9109": "957",
+      "\u6C60\u4E0A\u9109": "958",
+      "\u6771\u6CB3\u9109": "959",
+      "\u6210\u529F\u93AE": "961",
+      "\u9577\u6FF1\u9109": "962",
+      "\u592A\u9EBB\u91CC\u9109": "963",
+      "\u91D1\u5CF0\u9109": "964",
+      "\u5927\u6B66\u9109": "965",
+      "\u9054\u4EC1\u9109": "966"
+    },
+    "\u82B1\u84EE\u7E23": {
+      "\u82B1\u84EE\u5E02": "970",
+      "\u65B0\u57CE\u9109": "971",
+      "\u79C0\u6797\u9109": "972",
+      "\u5409\u5B89\u9109": "973",
+      "\u58FD\u8C50\u9109": "974",
+      "\u9CF3\u6797\u93AE": "975",
+      "\u5149\u5FA9\u9109": "976",
+      "\u8C50\u6FF1\u9109": "977",
+      "\u745E\u7A57\u9109": "978",
+      "\u842C\u69AE\u9109": "979",
+      "\u7389\u91CC\u93AE": "981",
+      "\u5353\u6EAA\u9109": "982",
+      "\u5BCC\u91CC\u9109": "983"
+    },
+    "\u91D1\u9580\u7E23": {
+      "\u91D1\u6C99\u93AE": "890",
+      "\u91D1\u6E56\u93AE": "891",
+      "\u91D1\u5BE7\u9109": "892",
+      "\u91D1\u57CE\u93AE": "893",
+      "\u70C8\u5DBC\u9109": "894",
+      "\u70CF\u5775\u9109": "896"
+    },
+    "\u9023\u6C5F\u7E23": {
+      "\u5357\u7AFF\u9109": "209",
+      "\u5317\u7AFF\u9109": "210",
+      "\u8392\u5149\u9109": "211",
+      "\u6771\u5F15\u9109": "212"
+    },
+    "\u6F8E\u6E56\u7E23": {
+      "\u99AC\u516C\u5E02": "880",
+      "\u897F\u5DBC\u9109": "881",
+      "\u671B\u5B89\u9109": "882",
+      "\u4E03\u7F8E\u9109": "883",
+      "\u767D\u6C99\u9109": "884",
+      "\u6E56\u897F\u9109": "885"
+    }
+  };
+  m.prototype = {
+    VERSION: "1.7.14",
+    data: function data() {
+      var a = this.wrap;
+      return "undefined" !== typeof f[a.county.val()] ? f[a.county.val()] : f;
+    },
+    serialize: function serialize() {
+      var a = [],
+          b = {},
+          c = {},
+          d = {},
+          b = this.container.find("select,input");
+      b.length ? b.each(function () {
+        c = g(this);
+        a.push(c.attr("name") + "=" + c.val());
+      }) : g(this).children().each(function () {
+        d = g(this);
+        a.push(d.attr("name") + "=" + d.val());
+      });
+      return a.join("&");
+    },
+    destroy: function destroy() {
+      g.data(this.container.get(0), "twzipcode", null);
+      if (this.container.length) return this.container.empty().off("change.twzipcode keyup.twzipcode blur.twzipcode");
+    },
+    get: function get(a) {
+      function b(b) {
+        "undefined" !== typeof c.wrap[b] && d.push(c.wrap[b].val());
+      }
+
+      var c = this,
+          d = [];
+      "function" === typeof a ? a.call(this, this.wrap.county.val(), this.wrap.district.val(), this.wrap.zipcode.val()) : "string" === typeof a ? a.split(",").forEach(b) : Array.isArray(a) ? a.forEach(b) : d = this.wrap;
+      return d;
+    },
+    set: function set(a) {
+      var b = g.extend({}, {
+        county: "",
+        district: "",
+        zipcode: ""
+      }, a);
+
+      try {
+        "string" === typeof a || "number" === typeof a ? this.wrap.zipcode.val(a).trigger("blur.twzipcode") : (b.zipcode && this.wrap.zipcode.val(b.zipcode).trigger("blur.twzipcode"), b.county && this.wrap.county.val(b.county).trigger("change.twzipcode"), b.district && this.wrap.district.val(b.district).trigger("change.twzipcode"));
+      } catch (c) {
+        console.warn(c.message);
+      } finally {
+        return this.container;
+      }
+    },
+    reset: function reset(a, b) {
+      var c = this.wrap,
+          d = this.options,
+          e = "",
+          l = [];
+
+      switch (b) {
+        case "district":
+          c.district.html("<option value=\"\">\u9109\u93AE\u5E02\u5340</option>");
+          break;
+
+        default:
+          c.county.html("<option value=\"\">\u7E23\u5E02</option>");
+          c.district.html("<option value=\"\">\u9109\u93AE\u5E02\u5340</option>");
+
+          for (e in f) {
+            "undefined" !== typeof f[e] && -1 === d.hideCounty.indexOf(e) && l.push('<option value="' + e + '">' + e + "</option>");
+          }
+
+          g(l.join("")).appendTo(c.county);
+      }
+
+      c.zipcode.val("");
+    },
+    bindings: function bindings() {
+      var a = this,
+          b = a.options,
+          c = a.wrap,
+          d = "",
+          e = "",
+          l = "";
+      c.county.on("change.twzipcode", function () {
+        var k = g(this).val(),
+            h = "",
+            e = [];
+        c.district.empty();
+
+        if (k) {
+          if (!0 === b.zipcodeIntoDistrict) for (h in f[k]) {
+            "undefined" !== typeof f[k][h] && -1 === b.hideDistrict.indexOf(h) && -1 === b.hideDistrict.indexOf(f[k][h]) && (e.push('<option value="' + h + '">'), e.push(f[k][h] + " " + h), e.push("</option>"));
+          } else for (h in f[k]) {
+            "undefined" !== typeof f[k][h] && -1 === b.hideDistrict.indexOf(h) && -1 === b.hideDistrict.indexOf(f[k][h]) && (e.push('<option value="' + h + '">'), e.push(h), e.push("</option>"));
+          }
+          c.district.append(e.join("")).trigger("change.twzipcode");
+        } else c.county.find("option:first").prop("selected", !0), a.reset("district");
+
+        "function" === typeof b.onCountySelect && b.onCountySelect.call(this);
+      });
+      c.district.on("change.twzipcode", function () {
+        var a = g(this).val();
+        c.county.val() && c.zipcode.val(f[c.county.val()][a]);
+        "function" === typeof b.onDistrictSelect && b.onDistrictSelect.call(this);
+      });
+      c.zipcode.on("keyup.twzipcode blur.twzipcode", function () {
+        var a = g(this),
+            e = "",
+            d = "";
+        a.val(a.val().replace(/[^0-9]/g, ""));
+        a = a.val().toString();
+        if (3 === a.length) for (e in f) {
+          if ("undefined" !== typeof f[e]) for (d in f[e]) {
+            if ("undefined" !== typeof f[e][d] && a === f[e][d]) {
+              c.county.val(e).trigger("change.twzipcode");
+              c.district.val(d).trigger("change.twzipcode");
+              break;
+            }
+          }
+        }
+        "function" === typeof b.onZipcodeKeyUp && b.onZipcodeKeyUp.call(this);
+      });
+
+      (function () {
+        var b = a.role.zipcode.data(),
+            c = a.role.county.data(),
+            e = a.role.district.data(),
+            d;
+
+        for (d in b) {
+          "role" !== d && a.role.zipcode.find(":input").attr(d, b[d]);
+        }
+
+        for (d in c) {
+          "role" !== d && a.role.county.find("select").attr(d, c[d]);
+        }
+
+        for (d in e) {
+          "role" !== d && a.role.district.find("select").attr(d, e[d]);
+        }
+      })();
+
+      d = "undefined" !== typeof b.zipcodeSel ? b.zipcodeSel : "undefined" !== typeof a.role.zipcode.data("value") ? a.role.zipcode.data("value") : b.zipcodeSel;
+      e = "undefined" !== typeof b.countySel ? b.countySel : "undefined" !== typeof a.role.county.data("value") ? a.role.county.data("value") : b.countySel;
+      l = "undefined" !== typeof b.districtSel ? b.districtSel : "undefined" !== typeof a.role.district.data("value") ? a.role.district.data("value") : b.districtSel;
+      e && (a.wrap.county.val(e).trigger("change.twzipcode"), "undefined" !== typeof f[e][l] && a.wrap.district.val(l).trigger("change.twzipcode"));
+      d && 3 === d.toString().length && a.wrap.zipcode.val(d).trigger("blur.twzipcode");
+    },
+    geoLocation: function geoLocation(a) {
+      var b = this,
+          c = navigator.geolocation,
+          d = b.options;
+      c && a && c.getCurrentPosition(function (c) {
+        var e = {};
+        "coords" in c && "latitude" in c.coords && "longitude" in c.coords && (e = [c.coords.latitude, c.coords.longitude], g.getJSON("https://maps.googleapis.com/maps/api/geocode/json", {
+          key: d.googleMapsKey,
+          sensor: !1,
+          latlng: e.join(",")
+        }, function (d) {
+          d && "undefined" !== typeof d.results && "undefined" !== typeof d.results[0].address_components && "undefined" !== typeof d.results[0].address_components[0] && (d = d.results[0].address_components[d.results[0].address_components.length - 1].long_name) && b.wrap.zipcode.val(d.toString()).trigger("blur.twzipcode");
+          "function" === typeof a && a.call(b, c);
+        }));
+      }, function (a) {
+        console.error(a);
+      }, {
+        maximumAge: 6E5,
+        timeout: 3E3,
+        enableHighAccuracy: !1
+      });
+    },
+    init: function init() {
+      var a = this.container,
+          b = this.options,
+          c = {
+        county: a.find("[data-role=county]:first"),
+        district: a.find("[data-role=district]:first"),
+        zipcode: a.find("[data-role=zipcode]:first")
+      },
+          d = c.county.data("name") || b.countyName,
+          e = c.district.data("name") || b.districtName,
+          f = c.zipcode.data("name") || b.zipcodeName,
+          k = c.zipcode.data("placeholder") || b.zipcodePlaceholder,
+          h = c.zipcode.data("readonly") || b.readonly;
+      g("<select/>").attr("name", d).addClass(c.county.data("style") || ("undefined" !== typeof b.css[0] ? b.css[0] : "")).appendTo(c.county.length ? c.county : a);
+      g("<select/>").attr("name", e).addClass(c.district.data("style") || ("undefined" !== typeof b.css[1] ? b.css[1] : "")).appendTo(c.district.length ? c.district : a);
+      g("<input/>").attr({
+        type: "text",
+        name: f,
+        placeholder: k
+      }).prop("readonly", h).addClass(c.zipcode.data("style") || ("undefined" !== typeof b.css[2] ? b.css[2] : "")).appendTo(c.zipcode.length ? c.zipcode : a);
+      this.wrap = {
+        county: a.find('select[name="' + d + '"]:first'),
+        district: a.find('select[name="' + e + '"]:first'),
+        zipcode: a.find('input[type=text][name="' + f + '"]:first')
+      };
+      !0 === b.zipcodeIntoDistrict && this.wrap.zipcode.hide();
+      this.role = c;
+      this.reset();
+      this.bindings();
+      this.geoLocation(b.detect);
+    }
+  };
+
+  g.fn.twzipcode = function (a) {
+    var b = {},
+        c = [],
+        d = arguments;
+    return "string" === typeof a ? (this.each(function () {
+      b = g.data(this, "twzipcode");
+      b instanceof m && "function" === typeof b[a] && (c = b[a].apply(b, Array.prototype.slice.call(d, 1)));
+    }), "undefined" !== typeof c ? c : this) : this.each(function () {
+      g.data(this, "twzipcode") || g.data(this, "twzipcode", new m(this, a));
+    });
+  };
+})(window.jQuery || {}, window, document);
+
+/***/ }),
+
 /***/ "./resources/assets/js/main.js":
 /*!*************************************!*\
   !*** ./resources/assets/js/main.js ***!
@@ -6059,15 +6726,49 @@ $(document).ready(function () {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   }); // ajax post
+  // $('#removeModal').on('show.bs.modal', function (event) {
+  //     var btn = $(event.relatedTarget);
+  //     var title = btn.data('title');
+  //     var price = btn.data('price');
+  //     var modal = $(this);
+  //     modal.find('.modal-title').text('確認刪除 ' + title);
+  //     modal.find('.modal-body').text('您要刪除 ' + title + ' $ ' + price + '元 嗎?');
+  // });
+  // 自訂樣飾區
 
-  $('#removeModal').on('show.bs.modal', function (event) {
-    var btn = $(event.relatedTarget);
-    var title = btn.data('title');
-    var price = btn.data('price');
-    var modal = $(this);
-    modal.find('.modal-title').text('確認刪除 ' + title);
-    modal.find('.modal-body').text('您要刪除 ' + title + ' $ ' + price + '元 嗎?');
+  $("#twzipcode").twzipcode({
+    countySel: $('.address').data('city'),
+    districtSel: $('.address').data('town'),
+    // zipcodeIntoDistrict: true, // 郵遞區號自動顯示在地區
+    css: ["city form-control live", "town form-control live", "postcode form-control live"],
+    // 自訂 "城市"、"地區" class 名稱
+    countyName: "city",
+    // 自訂城市 select 標籤的 name 值
+    districtName: "town",
+    // 自訂地區 select 標籤的 name 值
+    zipcodeName: 'postcode'
   });
+  var product_content = $('.product_content').attr('value');
+  $('.product_content').html(product_content);
+  var twzipcode = $('#twzipcode');
+  $(twzipcode).children("select").prop('required', true);
+  $(twzipcode).children("input").prop('required', true);
+  var total = $('.total'),
+      total_all = $('.total_all'),
+      val = 0;
+
+  for (var i = 0; i < total.length; i++) {
+    val = val + $(total[i]).data('total');
+  }
+
+  if (val < 500) {
+    val = val + 80;
+  } else {
+    $('.freight').addClass("strikethrough");
+  }
+
+  $(total_all).html('$' + val + ''); //頁面 : inc.hender
+
   $('body').on("click", '#dropdownMenuButton', function () {
     $('.dropdown-menu').show();
   });
@@ -6077,7 +6778,8 @@ $(document).ready(function () {
     if (!container.is(e.target) && container.has(e.target).length === 0) {
       container.hide();
     }
-  }); //動態新增的elements要綁定事件需要用.on的方式
+  }); //頁面 : index
+  //動態新增的elements要綁定事件需要用.on的方式
 
   $('body').on("click", '.getcategory2', function () {
     var code = $(this).attr('code'),
@@ -6099,8 +6801,6 @@ $(document).ready(function () {
       }
     });
   });
-  var product_content = $('.product_content').attr('value');
-  $('.product_content').html(product_content);
   $('body').on("click", '.returncategory1', function () {
     var parent_div = $(this).parent();
     $.ajax({
@@ -6116,7 +6816,8 @@ $(document).ready(function () {
         }
       }
     });
-  });
+  }); //頁面 : product
+
   $('body').on("click", '.ajax_product', function () {
     var code = $(this).attr('Code'),
         page = $(this).attr('page'),
@@ -6204,7 +6905,8 @@ $(document).ready(function () {
         }
       }
     });
-  } //動態新增的elements要綁定事件需要用.on的方式
+  } //頁面 : getmember
+  //動態新增的elements要綁定事件需要用.on的方式
 
 
   $('body').on("click", '.register_member', function (event) {
@@ -6226,6 +6928,65 @@ $(document).ready(function () {
         }
       }
     });
+  }); //頁面 : product_view
+
+  var number_submit = $('.product_number').children(':submit');
+  $(number_submit).click(function () {
+    var select_val = $('.product_number').children('select').val(),
+        mb_id = $(this).data('mbid'),
+        pd_id = $(this).data('id'),
+        pd_name = $(this).data('name'),
+        pd_price = $(this).data('price'),
+        pd_link = $(this).data('link'),
+        pd_img = $(this).data('img');
+
+    if (mb_id == '') {
+      alert('請先登入會員，才能進行購物動作');
+    } else {
+      $.ajax({
+        type: 'POST',
+        url: 'add_cart',
+        data: {
+          "pd_number": select_val,
+          "mb_id": mb_id,
+          "pd_id": pd_id,
+          "pd_name": pd_name,
+          "pd_price": pd_price,
+          "pd_link": pd_link,
+          "pd_img": pd_img
+        },
+        async: false,
+        success: function success(data) {
+          alert('已將商品 ' + pd_name + ' 數量 ' + select_val + ' 件加入會員購物車');
+          location.reload();
+        }
+      });
+    }
+  });
+  $('body').on("click", '.del_product', function (event) {
+    var pd_id = $(this).data('pdid'),
+        pd_name = $(this).data('name');
+
+    if (confirm("確定刪除此件商品嗎")) {
+      $.ajax({
+        type: 'POST',
+        url: 'del_cart',
+        data: {
+          "pd_id": pd_id
+        },
+        async: false,
+        success: function success(data) {
+          alert('已將商品 ' + pd_name + ' 移除');
+          location.reload();
+        }
+      });
+    }
+  });
+  $('body').on("click", '.checkout', function (event) {
+    if (!confirm("本平台使用信用卡付款服務，將為您導向至歐付寶進行結帳動作")) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
   });
 });
 

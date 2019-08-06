@@ -16,27 +16,28 @@
                     <div class="form-row text-left mt-3">
                         <div class="form-group col-md-12">
                             <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control register_email" id="email" placeholder="Email" required>
+                            <input type="email" name="reg_email" class="form-control register_email" id="email" placeholder="Email" required>
                             <div class="invalid-feedback">請填寫Email</div>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="password">密碼</label>
-                            <input type="password" name="password" class="form-control" id="password" placeholder="password" required>
+                            <input type="password" name="reg_password" class="form-control" id="password" placeholder="password" required>
                             <div class="invalid-feedback">請填寫密碼</div>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="name">姓名</label>
-                            <input type="name" name="name" class="form-control" id="name" placeholder="name" required>
+                            <input type="name" name="reg_name" class="form-control" id="name" placeholder="name" required>
                             <div class="invalid-feedback">請填寫姓名</div>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="address">地址</label>
-                            <input type="address" name="address" class="form-control" id="address" placeholder="address" required>
+                            <div id="twzipcode"></div>
+                            <input type="address" name="reg_address" class="form-control" id="address" placeholder="address" required>
                             <div class="invalid-feedback">請填寫地址</div>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="phone">電話</label>
-                            <input type="phone" name="phone" class="form-control" id="phone" placeholder="phone" required>
+                            <input type="phone" name="reg_phone" class="form-control" id="phone" placeholder="phone" required>
                             <div class="invalid-feedback">請填寫電話</div>
                         </div>
                         <div class="form-group col-md-12 register_errormessage">
@@ -61,12 +62,12 @@
                     <div class="form-row text-left mt-3">
                         <div class="form-group col-md-12">
                             <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control " id="email" placeholder="Email" required>
+                            <input type="email" name="log_email" class="form-control " id="email" placeholder="Email" required>
                             <div class="invalid-feedback">請填寫Email</div>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="password">密碼</label>
-                            <input type="password" name="password" class="form-control" id="password" placeholder="password" required>
+                            <input type="password" name="log_password" class="form-control" id="password" placeholder="password" required>
                             <div class="invalid-feedback">請填寫密碼</div>
                         </div>
                     </div>

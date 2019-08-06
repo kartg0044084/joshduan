@@ -26,19 +26,26 @@
                 </div>
                 <hr>
 
-                <div class="input-group mt-3">
-                    <select name="number" class="form-control">
-                        <option value="1">1 件</option>
-                        <option value="2">2 件</option>
-                        <option value="3">3 件</option>
-                    </select>
-                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                    <input type="submit" class="btn btn-primary ml-1" value="加入購物車"></a>
+                <div class="input-group mt-3 product_number">
+                        <select name="number" class="form-control">
+                            <option value="1">1 件</option>
+                            <option value="2">2 件</option>
+                            <option value="3">3 件</option>
+                            <option value="4">4 件</option>
+                            <option value="5">5 件</option>
+                            <option value="6">6 件</option>
+                            <option value="7">7 件</option>
+                            <option value="8">8 件</option>
+                            <option value="9">9 件</option>
+                            <option value="10">10 件</option>
+                        </select>
+                        <input type="submit" class="btn btn-primary ml-1" value="加入購物車"
+                        data-mbid="{{Session::get('member.Mb_Id')}}" data-link= "product_view?Pd_id={{$value['Pd_id']}}" data-img= "files/StoreProduct/{{$value['Pd_Img']}}" data-id="{{$value['Pd_id']}}" data-name="{{$value['Pd_Name']}}" @if($value['Pd_Discount'] != '') data-price="{{$value['Pd_Discount_Price']}}" @else data-price="{{$value['Pd_Price']}}" @endif>
                 </div>
             </div>
 
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8" style="margin-top: 10px;">
             <h2 class="red">{{$value['Pd_Name']}}</h2>
             <p class="product_content" value="{{$value['Pd_Content']}}"></p>
 

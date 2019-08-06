@@ -6,6 +6,7 @@
  */
 require('./jquery.min');
 require('./bootstrap');
+require('./jquery.twzipcode.min');
 require('./main');
 // vue 暫無使用打算
 // window.Vue = require('vue');

@@ -33,17 +33,22 @@ class MemberController extends Controller
         $type = $request->input("type");
         switch ($type) {
             case 'register':
-                $member = $this->memberRepository->postmember($request->email, $request->password, $request->name, $request->address, $request->phone);
+                $member = $this->memberRepository->postmember($request->reg_email, $request->reg_password, $request->reg_name, $request->city, $request->town, $request->postcode, $request->reg_address, $request->reg_phone);
                 return redirect('informal_member');
                 break;
             case 'login':
-                $member = $this->memberRepository->getmember($request->email, $request->password);
+                $member = $this->memberRepository->getmember($request->log_email, $request->log_password);
                 if(!empty($member)){
                     if($member['Mb_Auth'] != 1){
                         $member_Auth = $this->memberRepository->member_Auth($member);
                         return redirect('informal_member');
                     }else{
-                        return redirect('');
+                        //如果會員與購物車有資料將跳轉至結帳動作
+                        // if(empty(session('nember')) && empty(session('cart'))){
+                            return redirect('')->withErrors('歡迎回來，將導向至首頁開始您的購物體驗');
+                        // }else{
+                            // return redirect('cart');
+                        // }
                     }
                 }else{
                     return view('pages.getmember')->withErrors('帳號密碼錯誤，請重新嘗試');

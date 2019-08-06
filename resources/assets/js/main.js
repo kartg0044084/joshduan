@@ -26,15 +26,46 @@ $(document).ready(function () {
     });
     // ajax post
 
-    $('#removeModal').on('show.bs.modal', function (event) {
-        var btn = $(event.relatedTarget);
-        var title = btn.data('title');
-        var price = btn.data('price');
-        var modal = $(this);
-        modal.find('.modal-title').text('確認刪除 ' + title);
-        modal.find('.modal-body').text('您要刪除 ' + title + ' $ ' + price + '元 嗎?');
+    // $('#removeModal').on('show.bs.modal', function (event) {
+    //     var btn = $(event.relatedTarget);
+    //     var title = btn.data('title');
+    //     var price = btn.data('price');
+    //     var modal = $(this);
+    //     modal.find('.modal-title').text('確認刪除 ' + title);
+    //     modal.find('.modal-body').text('您要刪除 ' + title + ' $ ' + price + '元 嗎?');
+    // });
+    // 自訂樣飾區
+    $("#twzipcode").twzipcode({
+    countySel: $('.address').data('city'),
+    districtSel: $('.address').data('town'),
+    // zipcodeIntoDistrict: true, // 郵遞區號自動顯示在地區
+    css: ["city form-control live", "town form-control live", "postcode form-control live"], // 自訂 "城市"、"地區" class 名稱
+    countyName: "city", // 自訂城市 select 標籤的 name 值
+    districtName: "town", // 自訂地區 select 標籤的 name 值
+    zipcodeName: 'postcode'
     });
 
+    var product_content = $('.product_content').attr('value');
+    $('.product_content').html(product_content);
+
+    var twzipcode = $('#twzipcode');
+    $(twzipcode).children("select").prop('required', true);
+    $(twzipcode).children("input").prop('required', true);
+
+    var total = $('.total'),
+        total_all = $('.total_all'),
+        val = 0;
+
+        for (var i = 0; i < total.length; i++) {
+            val = val + $(total[i]).data('total');
+        }
+        if(val < 500){
+            val = val + 80;
+        }else{
+            $('.freight').addClass( "strikethrough" );
+        }
+        $(total_all).html('$'+val+'');
+    //頁面 : inc.hender
     $('body').on("click", '#dropdownMenuButton', function () {
         $('.dropdown-menu').show();
     });
@@ -45,6 +76,7 @@ $(document).ready(function () {
     }
     });
 
+    //頁面 : index
     //動態新增的elements要綁定事件需要用.on的方式
     $('body').on("click", '.getcategory2', function () {
         var code = $(this).attr('code'),
@@ -65,9 +97,6 @@ $(document).ready(function () {
         });
     });
 
-    var product_content = $('.product_content').attr('value');
-    $('.product_content').html(product_content);
-
     $('body').on("click", '.returncategory1', function () {
         var parent_div = $(this).parent();
         $.ajax({
@@ -84,6 +113,7 @@ $(document).ready(function () {
         });
     });
 
+    //頁面 : product
     $('body').on("click", '.ajax_product', function () {
         var code = $(this).attr('Code'),
             page = $(this).attr('page'),
@@ -174,6 +204,7 @@ $(document).ready(function () {
         });
     }
 
+    //頁面 : getmember
     //動態新增的elements要綁定事件需要用.on的方式
     $('body').on("click", '.register_member', function (event) {
         var email_val = $('.register_email').val(),
@@ -193,6 +224,63 @@ $(document).ready(function () {
                }
            }
         });
+    });
+
+    //頁面 : product_view
+    var number_submit = $('.product_number').children(':submit');
+    $(number_submit).click(function(){
+        var select_val = $('.product_number').children('select').val(),
+            mb_id = $(this).data('mbid'),
+            pd_id = $(this).data('id'),
+            pd_name = $(this).data('name'),
+            pd_price = $(this).data('price'),
+            pd_link = $(this).data('link'),
+            pd_img = $(this).data('img');
+            if(mb_id == ''){
+                alert('請先登入會員，才能進行購物動作');
+            }else{
+                $.ajax({
+                   type:'POST',
+                   url:'add_cart',
+                   data:{"pd_number":select_val,
+                         "mb_id":mb_id,
+                         "pd_id":pd_id,
+                         "pd_name":pd_name,
+                         "pd_price":pd_price,
+                         "pd_link":pd_link,
+                         "pd_img":pd_img},
+                   async:false,
+                   success:function(data){
+                       alert('已將商品 '+pd_name+' 數量 '+select_val+' 件加入會員購物車');
+                       location.reload();
+                   }
+                });
+            }
+    });
+
+    $('body').on("click", '.del_product', function (event) {
+        var pd_id = $(this).data('pdid'),
+            pd_name = $(this).data('name');
+
+        if(confirm("確定刪除此件商品嗎")){
+            $.ajax({
+               type:'POST',
+               url:'del_cart',
+               data:{"pd_id":pd_id},
+               async:false,
+               success:function(data){
+                   alert('已將商品 '+pd_name+' 移除');
+                   location.reload();
+               }
+            });
+        }
+    });
+
+    $('body').on("click", '.checkout', function (event) {
+        if(!confirm("本平台使用信用卡付款服務，將為您導向至歐付寶進行結帳動作")){
+            event.preventDefault();
+            event.stopPropagation();
+        }
     });
 
 });

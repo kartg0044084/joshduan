@@ -686,6 +686,11 @@ body {
   justify-content: center !important;
 }
 
+.live {
+  width: 33.33%;
+  display: inline-block;
+}
+
 .jumbotron-bg {
   background: url(/images/home.jpg?6a32516a85fdce0c820640aa540b17ed);
   background-attachment: fixed;
