@@ -31,6 +31,10 @@ Route::post('add_cart', 'CartController@add_cart')->name('add_cart');
 Route::get('cart', 'CartController@cart')->name('cart');
 Route::post('del_cart', 'CartController@del_cart')->name('del_cart');
 Route::post('checkout', 'CartController@checkout')->name('checkout');
+// 前台訂單
+Route::get('getorder_all', 'OrderController@getorder_all')->name('getorder_all');
+Route::get('getorder', 'OrderController@getorder')->name('getorder');
+Route::post('del_order', 'OrderController@del_order')->name('del_order');
 // 歐付寶 結帳系統
 Route::post('allpayrecevie', 'AllpayController@allpayrecevie')->name('allpayrecevie');
 //寄會員驗證信

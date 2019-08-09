@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Repositories\OrderRepository;
 //歐付寶 api
 use Illuminate\Http\Request;
 use AllInOne;
@@ -13,13 +14,14 @@ use OpayEncryptType;
 
 class AllpayController extends Controller
 {
+    protected $orderRepository;
 
-    public function __construct()
+    public function __construct(OrderRepository $orderRepository)
     {
-
+        $this->orderRepository = $orderRepository;
     }
 
-    public function allpaycheckout($data, $amount)
+    public function allpaycheckout($order_no, $amount, $data)
     {
         try {
             $obj = new AllInOne();
@@ -35,10 +37,9 @@ class AllpayController extends Controller
             $obj->EncryptType = EncryptType::ENC_SHA256;
             //CheckMacValue加密類型，請固定填入1，使用SHA256加密
             //基本參數(請依系統規劃自行調整)
-            $MerchantTradeNo = "Test".time();
             $obj->Send['ReturnURL'] = env('ALLPAYRETURNURL');
             //付款完成通知回傳的網址
-            $obj->Send['MerchantTradeNo']   = $MerchantTradeNo;
+            $obj->Send['MerchantTradeNo']   = $order_no;
             //訂單編號
             $obj->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');
             //交易時間
@@ -60,7 +61,7 @@ class AllpayController extends Controller
         }
     }
 
-    public function allpayrecevie()
+    public function allpayrecevie(Request $request)
     {
         try {
             $obj = new OpayAllInOne();
@@ -84,6 +85,8 @@ class AllpayController extends Controller
                 fclose($fp);
             }
             echo '1|OK' ;
+            //回傳成功時，更改此一訂單之狀態
+            $editorder_status = $this->orderRepository->editorder_status($request->MerchantTradeNo);
             } catch (Exception $e) {
                 if(true){
                     $sLog_Path  = __DIR__.'/allpay_log/sample_payment_return.log' ; // LOG路徑

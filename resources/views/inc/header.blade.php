@@ -1,5 +1,6 @@
 @inject('MemberPresenter', 'App\Presenters\MemberPresenter')
 @inject('CartPresenter', 'App\Presenters\CartPresenter')
+@inject('OrderPresenter', 'App\Presenters\OrderPresenter')
 <nav class="navbar navbar-light bg-light ">
     <a href="index" class="navbar-brand mb-0 h1" style="font-weight: bold;"><i class="fas fa-heart text-info mr-1"></i>josh 購物商城</a>
     <div class="dropdown ml-auto">
@@ -7,11 +8,12 @@
             @if (!Session::get('member'))
             <a href="getmember">登入/ 註冊/</a>
             @endif
-            <a href="javascript:void(0);" id="dropdownMenuButton">登入資訊/購物車</a>
+            <a href="javascript:void(0);" id="dropdownMenuButton">登入資訊/購物車/訂單查詢</a>
         </div>
         <div class="dropdown-menu dropdown-menu-right" style="min-width: 300px" aria-labelledby="dropdownMenuButton">
             <div class="p-3">
                     {!! $MemberPresenter->showmember_name() !!}
+                    {!! $OrderPresenter->showorder() !!}
                     {!! $CartPresenter->showcart() !!}
             </div>
         </div>

@@ -12,7 +12,7 @@ let mix = require('laravel-mix');
  */
 // 前台
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+   .sass('resources/assets/sass/app.scss', 'public/css').version();
 // 後台
 mix.js('resources/assets/js/admin/admin_app.js', 'public/js/admin')
-  .sass('resources/assets/sass/admin/admin_app.scss', 'public/css/admin');
+  .sass('resources/assets/sass/admin/admin_app.scss', 'public/css/admin').version();

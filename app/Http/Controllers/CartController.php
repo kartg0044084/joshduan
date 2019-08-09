@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Repositories\CartRepository; //載入資料庫查詢檔案
+use App\Repositories\OrderRepository; //載入資料庫查詢檔案
 use App\Http\Controllers\AllpayController;  //載入歐付寶
 use Illuminate\Http\Request;
 
@@ -9,9 +10,10 @@ class CartController extends Controller
 {
     protected $cartRepository;
 
-    public function __construct(CartRepository $cartRepository, AllpayController $allpayController)
+    public function __construct(CartRepository $cartRepository, OrderRepository $orderRepository, AllpayController $allpayController)
     {
         $this->cartRepository = $cartRepository;
+        $this->orderRepository = $orderRepository;
         $this->allpayController = $allpayController;
     }
 
@@ -118,10 +120,17 @@ class CartController extends Controller
         return $carts;
     }
 
+    //購物車結帳 and 訂單結帳
     public function checkout(Request $request)
     {
-        $mb_cart_cont = $this->cartRepository->getmb_cart_cont(session('member.Mb_Id'));
-        $carts = json_decode($mb_cart_cont['Ca_Content'], true);
+        if(isset($request->odid)){
+            $mb_cart_cont = $this->orderRepository->select_order(session('member.Mb_Id'), $request->odid);
+            $carts = json_decode($mb_cart_cont['Od_Content'], true);
+        }else{
+            $mb_cart_cont = $this->cartRepository->getmb_cart_cont(session('member.Mb_Id'));
+            $carts = json_decode($mb_cart_cont['Ca_Content'], true);
+        }
+
         $data = [];
         $amount = 0;
         foreach ($carts as $k => $cart) {
@@ -133,10 +142,19 @@ class CartController extends Controller
             $amount = $amount + (int)$cart['pd_price'] * (int)$cart['pd_number'];
             array_push($data, $product);
         }
+        //訂單金額未滿 500 +80元運費
         if($amount < 500){
             $amount = $amount + 80;
         }
+
+        if(isset($request->odid)){
+            $order_no = $mb_cart_cont['Od_MerchantTradeNo'];
+        }else{
+            $order_no = $this->cartRepository->saveorder(session('member.Mb_Id'), $mb_cart_cont['Ca_Content'], $amount, $request->name, $request->email, $request->city, $request->town, $request->postcode,  $request->address);
+            $carts = null;
+            $mb_cart_update = $this->cartRepository->mb_cart_update(session('member.Mb_Id'), $carts);
+        }
         // 歐付寶處理
-        $allpay = $this->allpayController->allpaycheckout($data, $amount);
+        $allpay = $this->allpayController->allpaycheckout($order_no, $amount, $data);
     }
 }

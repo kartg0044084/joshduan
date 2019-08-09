@@ -276,6 +276,28 @@ $(document).ready(function () {
         }
     });
 
+    $('body').on("click", '.del_order', function (event) {
+        var od_id = $(this).data('odid'),
+            od_status = $(this).data('odstatus');
+
+        if(od_status == 0){
+            if(confirm("確定取消此訂單嗎")){
+                $.ajax({
+                   type:'POST',
+                   url:'del_order',
+                   data:{"od_id":od_id},
+                   async:false,
+                   success:function(data){
+                       alert('已將此筆訂單取消');
+                       location.reload();
+                   }
+                });
+            }
+        }else{
+            alert('此筆訂單已付款，無法取消，如有疑問請洽克服');
+        }
+    });
+
     $('body').on("click", '.checkout', function (event) {
         if(!confirm("本平台使用信用卡付款服務，將為您導向至歐付寶進行結帳動作")){
             event.preventDefault();
