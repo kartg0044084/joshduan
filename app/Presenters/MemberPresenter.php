@@ -11,7 +11,7 @@ class MemberPresenter
             $data.=     '<h6>'.session('member.Mb_Name').' 您好</h6>';
             $data.=     '<tbody>';
             $data.=         '<tr>';
-            $data.=             '<td class="align-middle text-right"><a href="#">更改會員資訊</a></td>';
+            $data.=             '<td class="align-middle text-right"><a href="javascript:void(0)">更改會員資訊</a></td>';
             $data.=             '<td class="align-middle text-right"><a href="logout">登出</a></td>';
             $data.=         '</tr>';
             $data.=     '</tbody>';

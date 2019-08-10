@@ -85,32 +85,4 @@
 
 </div>
 @include('inc.footer')
-
-    <!-- Modal -->
-    <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-outline-danger">確定</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    @if($errors->count())
-        @foreach ($errors->all() as $error)
-        <script type="text/javascript">
-            alert('{{$error}}');
-        </script>
-        @endforeach
-    @endif
 @endsection

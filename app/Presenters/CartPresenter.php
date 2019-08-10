@@ -17,20 +17,24 @@ class CartPresenter
         $data = '<table class="table table-sm ">';
         if(!empty(session('member'))){
             $mb_cart_cont = $this->cartRepository->getmb_cart_cont(session('member.Mb_Id'));
-            if(!empty($mb_cart_cont['Ca_Content'])){
-                $carts = json_decode($mb_cart_cont['Ca_Content'], true);
-                $data.=     '<h6>已選擇商品</h6>';
-                $data.=     '<tbody>';
-                foreach ($carts as $value) {
-                $data.=         '<tr>';
-                $data.=             '<td class="align-middle">'.$value['pd_name'].'</td>';
-                $data.=             '<td class="align-middle">'.$value['pd_number'].'件</td>';
-                $data.=             '<td class="align-middle text-right">$'.$value['pd_price'] * $value['pd_number'].'</td>';
-                $data.=         '</tr>';
+            if(session('member.Mb_Auth') == 1){
+                if(!empty($mb_cart_cont['Ca_Content'])){
+                    $carts = json_decode($mb_cart_cont['Ca_Content'], true);
+                    $data.=     '<h6>已選擇商品</h6>';
+                    $data.=     '<tbody>';
+                    foreach ($carts as $value) {
+                    $data.=         '<tr>';
+                    $data.=             '<td class="align-middle">'.$value['pd_name'].'</td>';
+                    $data.=             '<td class="align-middle">'.$value['pd_number'].'件</td>';
+                    $data.=             '<td class="align-middle text-right">$'.$value['pd_price'] * $value['pd_number'].'</td>';
+                    $data.=         '</tr>';
+                    }
+                    $data.=     '</tbody>';
+                }else{
+                    $data.= '<h6>購物車內尚無商品</h6>';
                 }
-                $data.=     '</tbody>';
             }else{
-                $data.= '<h6>購物車內尚無商品</h6>';
+                $data.= '<h6>尚未驗證無法觀看購物車</h6>';
             }
         }else{
             $data.= '<h6>尚未登入無法觀看購物車</h6>';

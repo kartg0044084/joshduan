@@ -3,7 +3,6 @@
 @include('inc.header')
 <div class="container mt-5" >
     <div class="h1 text-center"><strong>會員驗證</strong></div>
-
     <div class="row justify-content-center mt-4">
         <div class="col-md-8">
 
@@ -22,28 +21,6 @@
 
         </div>
     </div>
-
 </div>
 @include('inc.footer')
-
-    <!-- Modal -->
-    <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-outline-danger">確定</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection

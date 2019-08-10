@@ -204,12 +204,10 @@ $(document).ready(function () {
         });
     }
 
-    //頁面 : getmember
-    //動態新增的elements要綁定事件需要用.on的方式
+    //頁面 : getmember (查詢有無重複email帳號)
     $('body').on("click", '.register_member', function (event) {
         var email_val = $('.register_email').val(),
             errormessage = $('.register_errormessage');
-
         $.ajax({
            type:'POST',
            url:'repeat_member',

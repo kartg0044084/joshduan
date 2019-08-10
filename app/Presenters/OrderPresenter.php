@@ -16,15 +16,19 @@ class OrderPresenter
         $data = '<table class="table table-sm">';
         if(!empty(session('member'))){
             $mb_order = $this->orderRepository->getmb_order(session('member.Mb_Id'));
-            if(!empty($mb_order)){
-                $data.=     '<h6>訂單</h6>';
-                $data.=     '<tbody>';
-                $data.=         '<tr>';
-                $data.=             '<td class="align-middle text-right"><a href="getorder_all">觀看訂單</a></td>';
-                $data.=         '</tr>';
-                $data.=     '</tbody>';
+            if(session('member.Mb_Auth') == 1){
+                if(!empty($mb_order)){
+                    $data.=     '<h6>訂單</h6>';
+                    $data.=     '<tbody>';
+                    $data.=         '<tr>';
+                    $data.=             '<td class="align-middle text-right"><a href="getorder_all">觀看訂單</a></td>';
+                    $data.=         '</tr>';
+                    $data.=     '</tbody>';
+                }else{
+                    $data.=     '<h6>尚無訂單</h6>';
+                }
             }else{
-                $data.=     '<h6>尚無訂單</h6>';
+                $data.=     '<h6>尚未驗證無法觀看訂單</h6>';
             }
         }else{
             $data.=     '<h6>尚未登入無法觀看訂單</h6>';
