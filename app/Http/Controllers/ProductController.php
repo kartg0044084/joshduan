@@ -17,45 +17,23 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
+    //前台商品頁面 o
     public function product_view(Request $request){
-        $pd_id = $request->input("Pd_id");
-        $product = $this->productRepository->getproduct($pd_id);
+        $product = $this->productRepository->getproduct($request->pd_id);
         return view('pages.product_view',compact('product'));
     }
 
-    public function ad_category1(){
-        //先按大分類查看
-        $category1 = $this->productRepository->getcategory1();
-        $class = '1';
-        $route = 'ad_category2';
-        $category1_data = $this->productService->sort_category($category1, $class, $route);
-        return view('admin.pages.category')->with('category', $category1_data);
-    }
-
-    public function ad_category2(Request $request)
-    {
-        $code = $request->input("Code");
-        $class = '2';
-        $route = 'ad_product';
-        $category2 = $this->productRepository->getcategory2($code);
-        $category2_data = $this->productService->sort_category($category2, $class, $route);
-        return view('admin.pages.category')->with('category', $category2_data);
-    }
-
-    public function ad_product(Request $request)
+    //前後台商品列表
+    public function product(Request $request)
     {
         session()->put('request_url', $_SERVER['REQUEST_URI']); //記得當前列表 url 修改商品返回使用
-        $code = $request->input("Code");
-        $type = $request->input("type");
+        $code = $request->code;
+        $type = $request->type;
         $product_all = $this->productRepository->getproduct_all($code);
         $data_nums = count($product_all); //統計總筆數
         $per = '12'; //每頁顯示項目數量
         $pages = ceil($data_nums/$per); //取得不小於值的下一個整數
-        if (!isset($_GET["page"])){ //假如$_GET["page"]未設置
-            $page = 1; //則在此設定起始頁數
-        } else {
-            $page = intval($_GET["page"]); //確認頁數只能夠是數值資料
-        }
+        $page = (!isset($_GET["page"])) ? 1 : intval($_GET["page"]);
         // ajax_product
         if($type == 'ajax_product'|| $type == 'ajax_page'){
             $page = intval($request->page);
@@ -84,14 +62,34 @@ class ProductController extends Controller
              break;
         }
     }
+    // o
+    public function ad_category1(){
+        //先按大分類查看
+        $category1 = $this->productRepository->getcategory1();
+        $class = '1';
+        $route = 'ad_category2';
+        $category1_data = $this->productService->sort_category($category1, $class, $route);
+        return view('admin.pages.category')->with('category', $category1_data);
+    }
 
+    // o
+    public function ad_category2(Request $request)
+    {
+        $class = '2';
+        $route = 'ad_product';
+        $category2 = $this->productRepository->getcategory2($request->code);
+        $category2_data = $this->productService->sort_category($category2, $class, $route);
+        return view('admin.pages.category')->with('category', $category2_data);
+    }
+
+    //更新後台商品 o
     public function ad_editproduct(Request $request)
     {
-        $code = $request->input("Pd_id");
-        $product = $this->productRepository->editproduct($code);
+        $product = $this->productRepository->getproduct($request->pd_id);
         return view('admin.pages.editproduct')->with('product', $product);
     }
 
+    //更新後台商品處理 o
     public function ad_editproduct_done(Request $request)
     {
         $editproduct_done = $this->productRepository->editproduct_done($request->pd_id, $request->price, $request->content, $request->status, $request->discount);

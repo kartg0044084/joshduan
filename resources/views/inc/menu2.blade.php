@@ -4,10 +4,10 @@
         @if(count($categories2) > 0)
             @foreach($categories2 as $k=> $category2)
 
-            @if($Code == $category2['Code'])
-            <a href="getproduct_all?type=reception&ListCode={{$ListCode}}&Code={{$category2['Code']}}" code="{{$category2['Code']}}" class="list-group-item list-group-item-action list-group-item-primary category2" data-toggle="list">{{$category2['Category2']}}</a>
+            @if($code == $category2['Code'])
+            <a href="getproduct_all?type=reception&listcode={{$listcode}}&code={{$category2['Code']}}" code="{{$category2['Code']}}" class="list-group-item list-group-item-action list-group-item-primary category2" data-toggle="list">{{$category2['Category2']}}</a>
             @else
-            <a href="getproduct_all?type=reception&ListCode={{$ListCode}}&Code={{$category2['Code']}}" code="{{$category2['Code']}}" class="list-group-item list-group-item-action category2" data-toggle="list">{{$category2['Category2']}}</a>
+            <a href="getproduct_all?type=reception&listcode={{$listcode}}&code={{$category2['Code']}}" code="{{$category2['Code']}}" class="list-group-item list-group-item-action category2" data-toggle="list">{{$category2['Category2']}}</a>
             @endif
 
             @endforeach

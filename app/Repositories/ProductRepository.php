@@ -7,9 +7,6 @@ use App\Models\Category; //Model
 use App\Models\Product; //Model
 class ProductRepository extends Repository
 {
-    // protected $model;
-    private $category;
-    private $product;
 
     public function __construct(Category $category, Product $product)
     {
@@ -26,7 +23,7 @@ class ProductRepository extends Repository
 
     public function getproduct($pd_id)
     {
-        $product = $this->product->whereRaw('Pd_id = "'.$pd_id.'" AND Pd_Status != 0')->get()->toArray();
+        $product = $this->product->whereRaw('Pd_id = "'.$pd_id.'" AND Pd_Status != 0')->first()->toArray();
         return $product;
     }
 
@@ -52,12 +49,6 @@ class ProductRepository extends Repository
     {
         $product_page_all = $this->product->whereRaw('Pd_Category2 = '.$code.' AND Pd_Status != 0 LIMIT '.$start.', '.$per.'')->get()->toArray();
         return $product_page_all;
-    }
-
-    public function editproduct($code)
-    {
-        $product = $this->product->whereRaw('Pd_id = '.$code.'')->get()->toArray();
-        return $product;
     }
 
     public function editproduct_done($pd_id, $price, $content, $status, $discount)

@@ -9,41 +9,39 @@
                     <form id="managerfrom" action="{{route('ad_editproduct_done')}}" method="post">
                         {{ csrf_field() }}
 
-                        @foreach($product as $value)
                         <h3><span class="label label-default">商品圖片</span></h3>
-                        <img src="files/StoreProduct/{{$value['Pd_Img']}}" alt="{{$value['Pd_Name']}}" class="img-thumbnail img-width30">
+                        <img src="files/StoreProduct/{{$product['Pd_Img']}}" alt="{{$product['Pd_Name']}}" class="img-thumbnail img-width30">
 
                         <h3><span class="label label-default">商品名稱</span></h3>
-                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" disabled="disabled" value="{{$value['Pd_Name']}}">
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" disabled="disabled" value="{{$product['Pd_Name']}}">
 
                         <h3><span class="label label-default">價錢</span></h3>
-                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="price" value="{{$value['Pd_Price']}}">
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="price" value="{{$product['Pd_Price']}}">
 
                         <h3><span class="label label-default">折扣 % 數</span></h3>
-                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="discount" @if($value['Pd_Discount'] != '') value="{{$value['Pd_Discount']}}" @endif>
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="discount" @if($product['Pd_Discount'] != '') value="{{$product['Pd_Discount']}}" @endif>
 
                         <h3><span class="label label-default">折扣後價錢</span></h3>
-                        @if($value['Pd_Discount_Price'] != '') $ {{$value['Pd_Discount_Price']}} @else 未折扣 @endif
+                        @if($product['Pd_Discount_Price'] != '') $ {{$product['Pd_Discount_Price']}} @else 未折扣 @endif
 
                         <h3><span class="label label-default">內容</span></h3>
-                        <textarea id="editor" name="content">{{$value['Pd_Content']}}</textarea>
+                        <textarea id="editor" name="content">{{$product['Pd_Content']}}</textarea>
 
                         <h3><span class="label label-default">狀態</span></h3>
 
                         <label class="radio-inline">
-                          <input type="radio" name="status"  value="1" @if($value['Pd_Status'] == 1) checked @endif >開啟
+                          <input type="radio" name="status"  value="1" @if($product['Pd_Status'] == 1) checked @endif >開啟
                         </label>
                         <label class="radio-inline">
-                          <input type="radio" name="status"  value="0" @if($value['Pd_Status'] == 0) checked @endif >關閉
+                          <input type="radio" name="status"  value="0" @if($product['Pd_Status'] == 0) checked @endif >關閉
                         </label>
 
                         <h3><span class="label label-default">創建日期</span></h3>
-                        {{$value['Pd_CreatedTime']}}
+                        {{$product['Pd_CreatedTime']}}
                         <h3><span class="label label-default">更新日期</span></h3>
-                        @if($value['Pd_ModifiedTime'] != '') {{$value['Pd_ModifiedTime']}} @else 未更新 @endif
+                        @if($product['Pd_ModifiedTime'] != '') {{$product['Pd_ModifiedTime']}} @else 未更新 @endif
                         <div>
-                            <input type="hidden" name="pd_id" value="{{$value['Pd_id']}}">
-                        @endforeach
+                            <input type="hidden" name="pd_id" value="{{$product['Pd_id']}}">
                             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         					<input type="submit" class="btn btn-info" value="送出">
                         </div>

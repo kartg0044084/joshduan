@@ -90,7 +90,7 @@ $(document).ready(function () {
               $(parent_div).children(".getcategory2").detach();
               $(parent_div).append('<a href="javascript:void(0);" class="list-group-item list-group-item-action active returncategory1" data-toggle="list">返回</a>');
               for (var i = 0; i < data.length; i++) {
-                  var datatext = '<a href="getproduct_all?type=reception&ListCode='+code+'&Code='+data[i].Code+'" code="'+data[i].Code+'" class="list-group-item list-group-item-action category2" data-toggle="list">'+data[i].Category2+'</a>';
+                  var datatext = '<a href="getproduct_all?type=reception&listcode='+code+'&code='+data[i].Code+'" code="'+data[i].Code+'" class="list-group-item list-group-item-action category2" data-toggle="list">'+data[i].Category2+'</a>';
                   $(parent_div).append(datatext);
               }
            }
@@ -115,7 +115,7 @@ $(document).ready(function () {
 
     //頁面 : product
     $('body').on("click", '.ajax_product', function () {
-        var code = $(this).attr('Code'),
+        var code = $(this).attr('code'),
             page = $(this).attr('page'),
             row_div = $(".product").parent(),
             pagination = $(this).parents("ul"),
@@ -133,12 +133,12 @@ $(document).ready(function () {
         $.ajax({
            type:'POST',
            url:'ajax_product',
-           data:{"Code":code, "page":page, "type":'ajax_page'},
+           data:{"code":code, "page":page, "type":'ajax_page'},
            success:function(data){
                // 上一頁
                if(data.page != 1){
                    $(previous).children('a').detach();
-                   $(previous).append('<a href="javascript:void(0);" class="page-link ajax_product" Code="'+data.code+'" page="'+(data.page - 1)+'">上一頁</a>');
+                   $(previous).append('<a href="javascript:void(0);" class="page-link ajax_product" code="'+data.code+'" page="'+(data.page - 1)+'">上一頁</a>');
                }else{
                    $(previous).children('a').detach();
                }
@@ -148,12 +148,12 @@ $(document).ready(function () {
                    $(bookmark).children('li').detach();
                    for( var i = 1 ; i <= data.pages ; i++ ){
                        if( data.page - 2 < i && i < data.page + 3 ){
-                           $(bookmark).append('<li class="page-item bookmark"><a href="javascript:void(0);" class="page-link ajax_product" Code="'+data.code+'" page="'+i+'">'+i+'</a></li>');
+                           $(bookmark).append('<li class="page-item bookmark"><a href="javascript:void(0);" class="page-link ajax_product" code="'+data.code+'" page="'+i+'">'+i+'</a></li>');
                        }
                    }
                    // 下一頁
                    $(next).children('a').detach();
-                   $(next).append('<a href="javascript:void(0);" class="page-link ajax_product" Code="'+data.code+'" page="'+(data.page + 1)+'">下一頁</a>');
+                   $(next).append('<a href="javascript:void(0);" class="page-link ajax_product" code="'+data.code+'" page="'+(data.page + 1)+'">下一頁</a>');
                }else{
                    $(next).children('a').detach();
                }
@@ -166,7 +166,7 @@ $(document).ready(function () {
         $.ajax({
            type:'POST',
            url:'ajax_product',
-           data:{"Code":code, "page":page, "type":'ajax_product'},
+           data:{"code":code, "page":page, "type":'ajax_product'},
            success:function(data){
               $(".product").detach();
               for (var i = 0; i < data.length; i++) {
@@ -188,7 +188,7 @@ $(document).ready(function () {
                                  var datatext3 = '<button type="button" class="btn btn-dark btn-sm" disabled>$'+data[i].Pd_Price+'元</button>';
 
                         var datatext4 = '</div>'
-                                        +'<a href="product_view?Pd_id='+data[i].Pd_id+'" class="btn btn-outline-secondary btn-sm mt-2 d-block"><i class="fas fa-shopping-cart mr-1"></i>購物去</a>'
+                                        +'<a href="product_view?pd_id='+data[i].Pd_id+'" class="btn btn-outline-secondary btn-sm mt-2 d-block"><i class="fas fa-shopping-cart mr-1"></i>購物去</a>'
                                     +'</div>'
 
                                 +'</div>'
@@ -229,6 +229,7 @@ $(document).ready(function () {
     $(number_submit).click(function(){
         var select_val = $('.product_number').children('select').val(),
             mb_id = $(this).data('mbid'),
+            mb_auth = $(this).data('mbauth'),
             pd_id = $(this).data('id'),
             pd_name = $(this).data('name'),
             pd_price = $(this).data('price'),
@@ -236,6 +237,8 @@ $(document).ready(function () {
             pd_img = $(this).data('img');
             if(mb_id == ''){
                 alert('請先登入會員，才能進行購物動作');
+      }else if(mb_auth == 0){
+                alert('會員目前未驗證，驗證過後才能進行購物動作');
             }else{
                 $.ajax({
                    type:'POST',

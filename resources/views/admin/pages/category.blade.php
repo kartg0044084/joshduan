@@ -27,7 +27,7 @@
                         <td>@if($value['category_type'] == 1) 開啟 @else 關閉 @endif</td>
                         <td>{{$value['lastmodified']}}</td>
                         <td>
-                        <a class="btn btn-warning" href="{{$value['route']}}?type=backstage&Code={{$value['code']}}">進入</a>
+                        <a class="btn btn-warning" href="{{$value['route']}}?type=backstage&code={{$value['code']}}">進入</a>
                         </td>
                     </tr>
                         @endforeach

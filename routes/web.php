@@ -16,8 +16,8 @@ Route::get('index', 'PagesController@index');
 Route::post('getcategory2', 'PagesController@getcategory2')->name('getcategory2');
 Route::get('returncategory1', 'PagesController@returncategory1')->name('returncategory1');
 // 前台 商品
-Route::get('getproduct_all', 'ProductController@ad_product')->name('ad_product');
-Route::post('ajax_product', 'ProductController@ad_product')->name('ajax_product');
+Route::get('getproduct_all', 'ProductController@product')->name('getproduct_all');
+Route::post('ajax_product', 'ProductController@product')->name('ajax_product');
 Route::get('product_view', 'ProductController@product_view')->name('product_view');
 // 前台 會員
 Route::get('getmember', 'MemberController@getmember')->name('getmember');
@@ -53,6 +53,6 @@ Route::get('ad_logout', 'AdminController@ad_logout')->name('ad_logout');
 // 後台 商品管理
 Route::get('ad_category1', 'ProductController@ad_category1')->name('ad_category1');
 Route::get('ad_category2', 'ProductController@ad_category2')->name('ad_category2');
-Route::get('ad_product', 'ProductController@ad_product')->name('ad_product');
+Route::get('ad_product', 'ProductController@product')->name('ad_product');
 Route::get('ad_editproduct', 'ProductController@ad_editproduct')->name('ad_editproduct');
 Route::post('ad_editproduct_done', 'ProductController@ad_editproduct_done')->name('ad_editproduct_done');

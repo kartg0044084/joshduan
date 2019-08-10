@@ -17,12 +17,14 @@ class LayoutComposerServiceProvider extends ServiceProvider
     {
         //视图间共享数据
         $categories = $this->getcategory();
-        if(!empty($request->input("ListCode"))){
-            $ListCode = $request->input("ListCode");
-            $Code = $request->input("Code");
-            $categories2 = $this->getChildCategories($request->input("ListCode"));
-            view()->share(compact('categories', 'categories2','ListCode', 'Code'));
+        if(!empty($request->listcode)){
+            //menu2
+            $listcode = $request->listcode;
+            $code = $request->code;
+            $categories2 = $this->getChildCategories($listcode);
+            view()->share(compact('categories', 'categories2','listcode', 'code'));
         }else{
+            //menu
             view()->share('categories', $categories);
         }
         // print_r($categories);
@@ -43,8 +45,7 @@ class LayoutComposerServiceProvider extends ServiceProvider
     protected function getcategory($select = 'Category1')
     {
         $item = [];
-        $categorys = Category::whereRaw(''.$select.' != "" AND Category_Type = 1')->orderBy('Cate_id','asc')->get();
-        $categorys = $categorys->toArray();
+        $categorys = Category::whereRaw(''.$select.' != "" AND Category_Type = 1')->orderBy('Cate_id','asc')->get()->toArray();
         // 遞迴取得所有下層子分類
         foreach ($categorys as $category) {
             $childs = $this->getChildCategories($category['Code']);
@@ -58,9 +59,9 @@ class LayoutComposerServiceProvider extends ServiceProvider
 
 
     // 第二次取得所有下層子分類
-    protected function getChildCategories($Code)
+    protected function getChildCategories($code)
     {
-        $childs = Category::whereRaw('MappingId = '.$Code.' AND Category1 = "" AND Category_Type = 1')->orderBy('Cate_id','asc')->get();
+        $childs = Category::whereRaw('MappingId = '.$code.' AND Category1 = "" AND Category_Type = 1')->orderBy('Cate_id','asc')->get();
         $childs = $childs->toArray();
         return $childs;
     }

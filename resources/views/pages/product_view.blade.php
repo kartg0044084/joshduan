@@ -4,23 +4,22 @@
 
 <div class="container">
     <div class="row">
-        @foreach($product as $k=> $value)
         <div class="col-md-4">
             <div class="sticky-top" style="top: 10px;">
-                <h1><small class="text-secondary ml-1">{{$value['Pd_Name']}}</small></h1>
+                <h1><small class="text-secondary ml-1">{{$product['Pd_Name']}}</small></h1>
                 <div class="d-flex justify-content-end align-items-end">
-                    @if($value['Pd_Discount'] != '')
-                    <del class="text-muted">售價 ${{$value['Pd_Price']}}</del>
+                    @if($product['Pd_Discount'] != '')
+                    <del class="text-muted">售價 ${{$product['Pd_Price']}}</del>
                     @endif
                     <div class="h3 ml-auto mb-0 text-danger">
-                    @if($value['Pd_Discount'] != '')
-                        <strong>{{$value['Pd_Discount']}}折</strong>
+                    @if($product['Pd_Discount'] != '')
+                        <strong>{{$product['Pd_Discount']}}折</strong>
                     @endif
                         <small>特價 $NT</small>
-                    @if($value['Pd_Discount'] != '')
-                        <strong>{{$value['Pd_Discount_Price']}}</strong>
+                    @if($product['Pd_Discount'] != '')
+                        <strong>{{$product['Pd_Discount_Price']}}</strong>
                     @else
-                        <strong>{{$value['Pd_Price']}}</strong>
+                        <strong>{{$product['Pd_Price']}}</strong>
                     @endif
                     </div>
                 </div>
@@ -40,20 +39,20 @@
                             <option value="10">10 件</option>
                         </select>
                         <input type="submit" class="btn btn-primary ml-1" value="加入購物車"
-                        data-mbid="{{Session::get('member.Mb_Id')}}" data-link= "product_view?Pd_id={{$value['Pd_id']}}" data-img= "files/StoreProduct/{{$value['Pd_Img']}}" data-id="{{$value['Pd_id']}}" data-name="{{$value['Pd_Name']}}" @if($value['Pd_Discount'] != '') data-price="{{$value['Pd_Discount_Price']}}" @else data-price="{{$value['Pd_Price']}}" @endif>
+                        data-mbid="{{Session::get('member.Mb_Id')}}" data-mbauth="{{Session::get('member.Mb_Auth')}}" data-link= "product_view?Pd_id={{$product['Pd_id']}}" data-img= "files/StoreProduct/{{$product['Pd_Img']}}" data-id="{{$product['Pd_id']}}" data-name="{{$product['Pd_Name']}}" @if($product['Pd_Discount'] != '') data-price="{{$product['Pd_Discount_Price']}}" @else data-price="{{$product['Pd_Price']}}" @endif>
                 </div>
             </div>
 
         </div>
         <div class="col-md-8" style="margin-top: 10px;">
-            <h2 class="red">{{$value['Pd_Name']}}</h2>
-            <p class="product_content" value="{{$value['Pd_Content']}}"></p>
+            <h2 class="red">{{$product['Pd_Name']}}</h2>
+            <p class="product_content" value="{{$product['Pd_Content']}}"></p>
 
             <div class="card border-0" style="width: 100%;">
                 <div class="card-body">
                     <h2 class="card-text text-center">商品圖錦</h2>
                 </div>
-                <img src="files/StoreProduct/{{$value['Pd_Img']}}" class="card-img-top" alt="{{$value['Pd_Name']}}">
+                <img src="files/StoreProduct/{{$product['Pd_Img']}}" class="card-img-top" alt="{{$product['Pd_Name']}}">
             </div>
 
             <div class="card mt-5">
@@ -85,29 +84,7 @@
                 </div>
             </div>
         </div>
-        @endforeach
     </div>
 </div>
 @include('inc.footer')
-
-    <!-- Modal -->
-    <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-outline-danger">確定</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection

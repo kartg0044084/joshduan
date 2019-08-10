@@ -33,7 +33,7 @@
                         <td>{{$value['Pd_CreatedTime']}}</td>
                         <td>@if($value['Pd_ModifiedTime'] != '') {{$value['Pd_ModifiedTime']}} @else 未更新 @endif</td>
                         <td>
-                        <a class="btn btn-warning" href="ad_editproduct?Pd_id={{$value['Pd_id']}}">進入</a>
+                        <a class="btn btn-warning" href="ad_editproduct?pd_id={{$value['Pd_id']}}">進入</a>
                         </td>
                     </tr>
                         @endforeach
@@ -44,17 +44,17 @@
                 <!-- 分頁 -->
                 <ul class="pagination page">
                     @if( $page != 1 )
-                            <li><a href="ad_product?type=backstage&Code={{$code}}&page={{$page-1}}">&laquo;</a></li>
+                            <li><a href="ad_product?type=backstage&code={{$code}}&page={{$page-1}}">&laquo;</a></li>
                     @endif
 
                     @for( $i = 1 ; $i <= $pages ; $i++ )
                         @if ( $page - 5 < $i && $i < $page + 6 )
-                            <li><a href="ad_product?type=backstage&Code={{$code}}&page={{$i}}">{{ $i }}</a></li>
+                            <li><a href="ad_product?type=backstage&code={{$code}}&page={{$i}}">{{ $i }}</a></li>
                         @endif
                     @endfor
 
                     @if( $page != $pages )
-                            <li><a href="ad_product?type=backstage&Code={{$code}}&page={{$page+1}}">&raquo;</a></li>
+                            <li><a href="ad_product?type=backstage&code={{$code}}&page={{$page+1}}">&raquo;</a></li>
                     @endif
                 </ul>
                 <!-- 分頁 -->
