@@ -14,6 +14,3 @@
         @endif
     </div>
 </div>
-<!-- <a href="#pane-1" class="list-group-item list-group-item-action active " data-toggle="list">全部商品</a> -->
-<!-- <a href="#" class="list-group-item list-group-item-action">送禮組合</a>
-<a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">限時下殺</a> -->

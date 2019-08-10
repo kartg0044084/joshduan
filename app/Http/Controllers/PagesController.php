@@ -4,19 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\PagesRepository;
 use App\Repositories\ProductRepository;
-// use App\Services\ProductService;
-// use Validator;
 
 class PagesController extends Controller
 {
-    // public function __construct()
-    // {
-        // $categorys = Category::orderBy('Cate_id','asc')->get();
-        // return view('inc.menu')->with('categorys', $categorys);
-    // }
-    protected $pagesRepository;
-    protected $productRepository;
-
     public function __construct(PagesRepository $pagesRepository, ProductRepository $productRepository)
     {
         $this->pagesRepository = $pagesRepository;
@@ -30,8 +20,7 @@ class PagesController extends Controller
 
     public function getcategory2(Request $request)
     {
-        $code = $request->code;
-        $getcategory2 = $this->productRepository->getcategory2($code);
+        $getcategory2 = $this->productRepository->getcategory2($request->code);
         return $getcategory2;
     }
 
