@@ -1,48 +1,43 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Repositories\CartRepository; //載入資料庫查詢檔案
-use App\Repositories\OrderRepository; //載入資料庫查詢檔案
-use App\Http\Controllers\AllpayController;  //載入歐付寶
+use App\Repositories\CartRepository;
+use App\Repositories\OrderRepository;
+use App\Http\Controllers\AllpayController; //載入歐付寶
 use Illuminate\Http\Request;
+use App\Services\CartService;
 
 class CartController extends Controller
 {
     protected $cartRepository;
 
-    public function __construct(CartRepository $cartRepository, OrderRepository $orderRepository, AllpayController $allpayController)
+    public function __construct(CartRepository $cartRepository, OrderRepository $orderRepository, AllpayController $allpayController, CartService $cartService)
     {
         $this->cartRepository = $cartRepository;
         $this->orderRepository = $orderRepository;
         $this->allpayController = $allpayController;
+        $this->cartService = $cartService;
     }
 
     public function cart()
     {
         if(empty(session('member'))){
-            return view('pages.getmember')->withErrors('請登入會員，已方便進行結帳動作');
+            return redirect('getmember')->withErrors('請登入會員，已方便進行結帳動作');
         }else{
             $mb_cart_cont = $this->cartRepository->getmb_cart_cont(session('member.Mb_Id'));
             $carts = json_decode($mb_cart_cont['Ca_Content'], true);
             if(empty($carts)){
-                return redirect('')->withErrors('購物車內已無商品，將導向至首頁選取商品');
+                return redirect('index')->withErrors('購物車內已無商品，將導向至首頁選取商品');
             }else{
                 return view('pages.cart');
             }
         }
-
     }
-
+    //新增商品至購物車 o
     public function add_cart(Request $request)
     {
         // 重要
-        $data['pd_number'] = $request->pd_number;
-        $data['pd_id'] = $request->pd_id;
-        $data['pd_name'] = $request->pd_name;
-        $data['pd_price'] = $request->pd_price;
-        $data['pd_link'] = $request->pd_link;
-        $data['pd_img'] = $request->pd_img;
-
+        $data = $this->cartService->getdata($request);
         $mb_cart_cont = $this->cartRepository->getmb_cart_cont($request->mb_id);
         if(empty($mb_cart_cont['Ca_Content'])){
             $carts = [];
@@ -100,12 +95,12 @@ class CartController extends Controller
         // $cart_all = session('cart');
         // return $cart_all;
     }
-
+    //從購物車刪除商品 o
     public function del_cart(Request $request)
     {
         $mb_cart_cont = $this->cartRepository->getmb_cart_cont(session('member.Mb_Id'));
         $carts = json_decode($mb_cart_cont['Ca_Content'], true);
-        // 刪除陣列 key 值
+        // 刪除選取商品由 陣列 key 值
         $key = array_search($request->pd_id, array_column($carts, 'pd_id'));
         unset($carts[$key]);
         $carts = array_values($carts);
@@ -123,8 +118,8 @@ class CartController extends Controller
     //購物車結帳 and 訂單結帳
     public function checkout(Request $request)
     {
-        if(isset($request->odid)){
-            $mb_cart_cont = $this->orderRepository->select_order(session('member.Mb_Id'), $request->odid);
+        if(!empty($request->od_id)){
+            $mb_cart_cont = $this->orderRepository->select_order(session('member.Mb_Id'), $request->od_id);
             $carts = json_decode($mb_cart_cont['Od_Content'], true);
         }else{
             $mb_cart_cont = $this->cartRepository->getmb_cart_cont(session('member.Mb_Id'));
@@ -147,8 +142,8 @@ class CartController extends Controller
             $amount = $amount + 80;
         }
 
-        if(isset($request->odid)){
-            $order_no = $mb_cart_cont['Od_MerchantTradeNo'];
+        if(isset($request->od_id)){
+            $order_no = $this->cartRepository->updateorder($request->od_id, session('member.Mb_Id'), $mb_cart_cont['Od_Content'], $amount, $request->name, $request->email, $request->city, $request->town, $request->postcode,  $request->address);
         }else{
             $order_no = $this->cartRepository->saveorder(session('member.Mb_Id'), $mb_cart_cont['Ca_Content'], $amount, $request->name, $request->email, $request->city, $request->town, $request->postcode,  $request->address);
             $carts = null;

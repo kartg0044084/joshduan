@@ -36,6 +36,23 @@ class CartRepository extends Repository
 
     public function saveorder($mb_id, $cart_content, $amount, $name, $email, $city, $town, $postcode, $address)
     {
+        $data = $this->data_list($mb_id, $cart_content, $amount, $name, $email, $city, $town, $postcode, $address);
+        $saveorder = $this->order->insertGetId($data);
+
+        return $data['Od_MerchantTradeNo'];
+    }
+
+    public function updateorder($od_id, $mb_id, $cart_content, $amount, $name, $email, $city, $town, $postcode, $address)
+    {
+        $data = $this->data_list($mb_id, $cart_content, $amount, $name, $email, $city, $town, $postcode, $address);
+        $data['Od_ModifiedTime'] = $this->time;
+        $update_order = $this->order->whereRaw('Mb_Id = '.$mb_id.' AND Od_Id = '.$od_id.'')->update($data);
+
+        return $data['Od_MerchantTradeNo'];
+    }
+
+    public function data_list($mb_id, $cart_content, $amount, $name, $email, $city, $town, $postcode, $address)
+    {
         $order_no = 'NO'.time().''.$mb_id.'';
         $data = ['Od_MerchantTradeNo'=> $order_no,
                  'Mb_Id'=> $mb_id,
@@ -50,7 +67,6 @@ class CartRepository extends Repository
                  'Od_Status'=> (int)0,
                  'Od_CreatedTime'=> $this->time];
 
-        $order_add = $this->order->insertGetId($data);
-        return $order_no;
+       return $data;
     }
 }

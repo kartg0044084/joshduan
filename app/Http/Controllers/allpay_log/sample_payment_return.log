@@ -17,3 +17,57 @@ Array
     [TradeNo] => 1908090033342107
 )
 
++++++++++++++++++++++++++++++++++++++++ 接收回傳參數 2019-08-11 10:24:27 ++++++++++++++++++++++++++++++++++++++++++++
+Array
+(
+    [MerchantID] => 2000132
+    [MerchantTradeNo] => NO15655189687
+    [PayAmt] => 425
+    [PaymentDate] => 2019/08/11 18:24:18
+    [PaymentType] => Credit
+    [PaymentTypeChargeFee] => 4
+    [RedeemAmt] => 0
+    [RtnCode] => 1
+    [RtnMsg] => 交易成功
+    [SimulatePaid] => 0
+    [TradeAmt] => 425
+    [TradeDate] => 2019/08/11 18:22:52
+    [TradeNo] => 1908111822522130
+)
+
++++++++++++++++++++++++++++++++++++++++ 接收回傳參數 2019-08-11 11:39:22 ++++++++++++++++++++++++++++++++++++++++++++
+Array
+(
+    [MerchantID] => 2000132
+    [MerchantTradeNo] => NO15655235097
+    [PayAmt] => 10238
+    [PaymentDate] => 2019/08/11 19:39:12
+    [PaymentType] => Credit
+    [PaymentTypeChargeFee] => 102
+    [RedeemAmt] => 0
+    [RtnCode] => 1
+    [RtnMsg] => 交易成功
+    [SimulatePaid] => 0
+    [TradeAmt] => 10238
+    [TradeDate] => 2019/08/11 19:38:33
+    [TradeNo] => 1908111938332133
+)
+
++++++++++++++++++++++++++++++++++++++++ 接收回傳參數 2019-08-11 11:46:22 ++++++++++++++++++++++++++++++++++++++++++++
+Array
+(
+    [MerchantID] => 2000132
+    [MerchantTradeNo] => NO15655239477
+    [PayAmt] => 524
+    [PaymentDate] => 2019/08/11 19:46:13
+    [PaymentType] => Credit
+    [PaymentTypeChargeFee] => 5
+    [RedeemAmt] => 0
+    [RtnCode] => 1
+    [RtnMsg] => 交易成功
+    [SimulatePaid] => 0
+    [TradeAmt] => 524
+    [TradeDate] => 2019/08/11 19:45:47
+    [TradeNo] => 1908111945472135
+)
+

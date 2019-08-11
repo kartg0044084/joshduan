@@ -6,9 +6,7 @@ use Yish\Generators\Foundation\Repository\Repository;
 
 class OrderRepository extends Repository
 {
-    // protected $model;
-    private $order;
-
+    
     public function __construct(Order $order)
     {
         $this->order = $order;

@@ -67,12 +67,12 @@
                     <div class="form-row text-left mt-3">
                         <div class="form-group col-md-6">
                             <label for="name">姓名</label>
-                            <input type="text" class="form-control" value="{{$order['Od_Name']}}" disabled="disabled">
+                            <input type="text" class="form-control" name="name" value="{{$order['Od_Name']}}" required>
                             <div class="invalid-feedback">請填寫姓名</div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="mail">Email</label>
-                            <input type="email" class="form-control" value="{{$order['Od_Email']}}" disabled="disabled">
+                            <input type="email" class="form-control" name="email" value="{{$order['Od_Email']}}" required>
                             <div class="invalid-feedback">請填寫Email</div>
                         </div>
                     </div>
@@ -80,13 +80,13 @@
                     <div class="form-row text-left">
                         <div class="form-group col-md-12">
                             <label for="address">地址</label>
-                            <input type="text" class="form-control" value="{{$order['Od_City']}}{{$order['Od_Town']}}{{$order['Od_Postcode']}}" disabled="disabled">
-                            <input type="text" class="form-control" value="{{$order['Od_Address']}}" disabled="disabled">
+                            <div id="twzipcode"></div>
+                            <input type="text" class="form-control address" name="address" data-city="{{$order['Od_City']}}" data-town="{{$order['Od_Town']}}" value="{{$order['Od_Address']}}" required>
                         </div>
                     </div>
 
                     <div class="mt-3 d-flex justify-content-end">
-                        <input type="hidden" name="odid" value="{{$order['Od_Id']}}">
+                        <input type="hidden" name="od_id" value="{{$order['Od_Id']}}">
                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                         <input type="button" class="btn btn-secondary mr-2" value="回上一頁" onclick="history.back()">
                         @if($order['Od_Status'] == 0)
@@ -94,6 +94,7 @@
                         @endif
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

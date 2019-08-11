@@ -38,7 +38,6 @@ class ProductController extends Controller
         if($type == 'ajax_product'|| $type == 'ajax_page'){
             $page = intval($request->page);
         }
-        // ajax_product
         $start = ($page-1) * $per; //每一頁開始的資料序號
         $product_page_all = $this->productRepository->getproduct_page_all($code, $start, $per);
         // 前後台轉換

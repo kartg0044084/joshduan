@@ -16,11 +16,11 @@ class OrderController extends Controller
     public function getorder_all()
     {
         if(empty(session('member'))){
-            return view('pages.getmember')->withErrors('請登入會員，已方便處理訂單');
+            return redirect('getmember')->withErrors('請登入會員，已方便處理訂單');
         }else{
             $mb_order = $this->orderRepository->getmb_order(session('member.Mb_Id'));
             if(empty($mb_order)){
-                return redirect('')->withErrors('目前無訂單狀態，將導向至首頁');
+                return redirect('index')->withErrors('目前無訂單狀態，將導向至首頁');
             }else{
                 return view('pages.order');
             }
